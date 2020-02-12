@@ -15,6 +15,7 @@ export default class Message extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      currentTime: new Date().getHours().toString()+new Date().getMinutes().toString(),
       memberId: this.props.navigation.state.params.memberId,
       managerId : this.props.navigation.state.params.managerId,
       messageId: this.props.navigation.state.params.messageId,
@@ -23,16 +24,16 @@ export default class Message extends Component {
       referenceId: "NULL"
     };
     if(this.state.time === null ){
-      console.log("changing ")
+      console.log("changing ",this.state.currentTime)
       if(this.state.managerId != "NULL"){
       db.transaction((tx)=> {
       tx.executeSql(
-        `UPDATE seniorManagerReporting set seenDateTime="10:00" where managerId=${this.state.managerId} And memberId=${this.state.memberId} And reportId=${this.state.messageId}`,
+        `UPDATE seniorManagerReporting set seenDateTime=${this.state.currentTime} where managerId=${this.state.managerId} And memberId=${this.state.memberId} And reportId=${this.state.messageId}`,
         [],
         (tx, results) => {
           console.log('Results',results.rowsAffected);
           if(results.rowsAffected>0){
-            this.setState({time : "10:00"})
+            this.setState({time : this.state.currentTime})
           }else{
             alert('Updation Failed');
           }
@@ -43,36 +44,20 @@ export default class Message extends Component {
   if(this.state.managerId === "NULL"){
     db.transaction((tx)=> {
     tx.executeSql(
-      `UPDATE MemberActivity set seenDateTime="10:00" where memberId=${this.state.memberId} And activitySerialNo=${this.state.messageId}`,
+      `UPDATE MemberActivity set seenDateTime=${this.state.currentTime} where memberId=${this.state.memberId} And activitySerialNo=${this.state.messageId}`,
       [],
       (tx, results) => {
         console.log('Results',results.rowsAffected);
         if(results.rowsAffected>0){
-          this.setState({time : "10:00"})
+          this.setState({time : this.state.currentTime})
         }else{
           alert('Updation Failed');
         }
       }
     );
   });  
-}
-
-      
+} 
     }
-    
-    // alert(this.state.memberId)
-    // db.transaction(tx => {
-    //     tx.executeSql(`SELECT * FROM teamMembers where memberId=${this.state.memberId}`, [], (tx, results) => {
-    //       var temp = [];
-    //       for (let i = 0; i < results.rows.length; ++i) {
-    //         temp.push(results.rows.item(i));
-    //       }
-    //       console.log(temp)
-    //       this.setState({
-    //         FlatListItems: temp,
-    //       });
-    //     });
-    //   });
   }
 
 

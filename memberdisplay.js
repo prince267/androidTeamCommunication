@@ -23,7 +23,7 @@ export default class memberdisplay extends React.Component {
         for (let i = 0; i < results.rows.length; ++i) {
           temp.push(results.rows.item(i));
         }
-        console.log(temp)
+        console.log(temp);
         this.setState({
           FlatListItems: temp,
         });
