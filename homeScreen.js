@@ -8,9 +8,25 @@ export default class HomeScreen extends React.Component {
         title: "Messenger",
         //Sets Header text of Status Bar
       };
+
+  componentDidMount() {
+
+    fetch("https://api.myjson.com/bins/9qm1g")
+    .then(response => response.json())
+    .then((responseJson) => {
+      this.setState({
+        datasource: responseJson
+      })
+    })
+    .catch(error => alert(error))
+  }
+
   constructor(props) {
     super(props)
 
+    this.state = {
+      datasource: ""
+    }
   }
   render() {
     return (
@@ -26,11 +42,11 @@ export default class HomeScreen extends React.Component {
         />
           <Mybutton
           title="Seen Messages"
-          customClick={() => this.props.navigation.navigate('seenMessages',{seenOrUnSeen :"IS NOT NULL"})}
+          customClick={() => this.props.navigation.navigate('seenMessages',{seenOrUnSeen : 1})}
         />
         <Mybutton
           title="Unseen Messages"
-          customClick={() => this.props.navigation.navigate('seenMessages',{ seenOrUnSeen :"IS NULL"})}
+          customClick={() => this.props.navigation.navigate('seenMessages',{ seenOrUnSeen : 0})}
         />
       </View>
       
