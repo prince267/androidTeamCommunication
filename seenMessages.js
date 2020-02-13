@@ -3,7 +3,14 @@ import React from 'react';
 import { FlatList, Text, View ,Image , StyleSheet , Button , TouchableOpacity} from 'react-native';
 import { openDatabase } from 'react-native-sqlite-storage';
 //Connction to access the pre-populated user_db.db
-var db = openDatabase({ name: 'Team_lead.db', createFromLocation : 1});
+function openCB() {
+  console.log("database open");
+}
+function errorCB(err){
+  alert("error: " + err);
+  return false;
+}
+var db = openDatabase({ name: 'Team_lead.db', createFromLocation : 1},openCB,errorCB);
  
 export default class seenMessages extends React.Component {
   static navigationOptions = {

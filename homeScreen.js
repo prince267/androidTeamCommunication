@@ -2,7 +2,6 @@
 import React from 'react';
 import { View } from 'react-native';
 import Mybutton from './components/Mybutton';
-import { openDatabase } from 'react-native-sqlite-storage';
 export default class HomeScreen extends React.Component {
     static navigationOptions = {
         title: "Messenger",

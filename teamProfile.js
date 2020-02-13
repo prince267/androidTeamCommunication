@@ -2,8 +2,16 @@
 import React from 'react';
 import { FlatList, Text, View ,Image , StyleSheet , Button , TouchableOpacity} from 'react-native';
 import { openDatabase } from 'react-native-sqlite-storage';
+function openCB() {
+  console.log("database open");
+}
+function errorCB(err){
+  alert("error: " + err);
+  return false;
+}
+var db = openDatabase({ name: 'Team_lead.db', createFromLocation : 1},openCB,errorCB);
 //Connction to access the pre-populated user_db.db
-var db = openDatabase({ name: 'Team_lead.db', createFromLocation : 1});
+
  
 export default class teamProfile extends React.Component {
   static navigationOptions = {
@@ -15,6 +23,7 @@ export default class teamProfile extends React.Component {
     this.state = {
       FlatListItems: [],
     };
+    
     db.transaction(tx => {
       tx.executeSql('SELECT * FROM teamMembers', [], (tx, results) => {
         var temp = [];

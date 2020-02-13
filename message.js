@@ -10,7 +10,14 @@ import {
   Image
 } from 'react-native';
 import { openDatabase } from 'react-native-sqlite-storage';
-var db = openDatabase({ name: 'Team_lead.db', createFromLocation : 1});
+function openCB() {
+  console.log("database open");
+}
+function errorCB(err){
+  alert("error: " + err);
+  return false;
+}
+var db = openDatabase({ name: 'Team_lead.db', createFromLocation : 1},openCB,errorCB);
 export default class Message extends Component {
   constructor(props) {
     super(props);
