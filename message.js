@@ -28,14 +28,16 @@ export default class Message extends Component {
       messageId: this.props.navigation.state.params.messageId,
       message: this.props.navigation.state.params.message,
       time: this.props.navigation.state.params.time,
-      referenceId: "NULL"
+      referenceId: "NULL",
+      seenOrUnSeen:this.props.navigation.state.params.seenOrUnSeen,
     };
-    if(this.state.time === null ){
+    console.log("seen is ",this.state.seenOrUnSeen);
+    if(!this.state.seenOrUnSeen){
       console.log("changing ",this.state.currentTime)
       if(this.state.managerId != "NULL"){
       db.transaction((tx)=> {
       tx.executeSql(
-        `UPDATE seniorManagerReporting set seenDateTime=${this.state.currentTime} where managerId=${this.state.managerId} And memberId=${this.state.memberId} And reportId=${this.state.messageId}`,
+        `UPDATE seniorManagerReporting set seenDateTime=${this.state.currentTime},seenOrUnSeen=1 where managerId=${this.state.managerId} And memberId=${this.state.memberId} And reportId=${this.state.messageId}`,
         [],
         (tx, results) => {
           console.log('Results',results.rowsAffected);
@@ -51,7 +53,7 @@ export default class Message extends Component {
   if(this.state.managerId === "NULL"){
     db.transaction((tx)=> {
     tx.executeSql(
-      `UPDATE MemberActivity set seenDateTime=${this.state.currentTime} where memberId=${this.state.memberId} And activitySerialNo=${this.state.messageId}`,
+      `UPDATE MemberActivity set seenDateTime=${this.state.currentTime},seenOrUnSeen=1 where memberId=${this.state.memberId} And activitySerialNo=${this.state.messageId}`,
       [],
       (tx, results) => {
         console.log('Results',results.rowsAffected);

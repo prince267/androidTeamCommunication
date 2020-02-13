@@ -25,11 +25,11 @@ export default class HomeScreen extends React.Component {
         />
           <Mybutton
           title="Seen Messages"
-          customClick={() => this.props.navigation.navigate('seenMessages',{seenOrUnSeen :"IS NOT NULL"})}
+          customClick={() => this.props.navigation.navigate('seenMessages',{seenOrUnSeen :1})}
         />
         <Mybutton
           title="Unseen Messages"
-          customClick={() => this.props.navigation.navigate('seenMessages',{ seenOrUnSeen :"IS NULL"})}
+          customClick={() => this.props.navigation.navigate('seenMessages',{ seenOrUnSeen :0})}
         />
       </View>
       

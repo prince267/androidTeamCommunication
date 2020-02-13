@@ -27,7 +27,7 @@ export default class seenMessages extends React.Component {
       seniorManagerMessages:[]
     };
     db.transaction(tx => {
-      tx.executeSql(`select * from MemberActivity where MemberActivity.seenDateTime ${this.state.seenOrUnSeen};`, [], (tx, results) => {
+      tx.executeSql(`select * from MemberActivity where seenOrUnseen=${this.state.seenOrUnSeen};`, [], (tx, results) => {
         var temp = [];
         for (let i = 0; i < results.rows.length; ++i) {
           temp.push(results.rows.item(i));
@@ -39,7 +39,7 @@ export default class seenMessages extends React.Component {
       });
     });
     db.transaction(tx => {
-        tx.executeSql(`select * from seniorManagerReporting where seniorManagerReporting.seenDateTime ${this.state.seenOrUnSeen};`, [], (tx, results) => {
+        tx.executeSql(`select * from seniorManagerReporting where seenOrUnseen=${this.state.seenOrUnSeen};`, [], (tx, results) => {
           var temp = [];
           for (let i = 0; i < results.rows.length; ++i) {
             temp.push(results.rows.item(i));
@@ -72,7 +72,8 @@ export default class seenMessages extends React.Component {
                     messageId: item.activitySerialNo,
                     message: item.activityDescription,
                     time: item.seenDateTime,
-                    referenceId: "NULL"
+                    referenceId: "NULL",
+                    seenOrUnSeen:item.seenOrUnseen,
                 } );
             }}
               >
@@ -100,7 +101,8 @@ export default class seenMessages extends React.Component {
                 messageId: item.reportId,
                 message: item.reportText,
                 time: item.seenDateTime,
-                referenceId: item.refPastReportId
+                referenceId: item.refPastReportId,
+                seenOrUnSeen:item.seenOrUnseen,
             } )}
               >
                 <View style= {styles.box}>
