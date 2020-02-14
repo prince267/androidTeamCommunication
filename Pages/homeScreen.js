@@ -1,7 +1,7 @@
 /*Home Screen With buttons to navigate to different options*/
 import React from 'react';
 import { View } from 'react-native';
-import Mybutton from './components/Mybutton';
+import Mybutton from '../components/Mybutton';
 export default class HomeScreen extends React.Component {
     static navigationOptions = {
         title: "Messenger",

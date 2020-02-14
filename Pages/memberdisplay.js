@@ -2,6 +2,7 @@
 import React from 'react';
 import { FlatList, Text, View ,Image , StyleSheet} from 'react-native';
 import { openDatabase } from 'react-native-sqlite-storage';
+import styles from './memberdisplayCSS'
 //Connction to access the pre-populated user_db.db
 function openCB() {
   console.log("database open");
@@ -71,39 +72,3 @@ export default class memberdisplay extends React.Component {
     );
   }
 }
-
-const styles= StyleSheet.create({
-  container: {
-    marginTop: 40,
-    marginHorizontal: 10,
-    flex: 1,
-    justifyContent: "center",
-    backgroundColor: "#e5e5e5"
-  },
-  headerText: {
-    fontSize: 20,
-    textAlign: "center",
-    margin: 10,
-    fontWeight: "bold"
-  },
-  ImageView :{
-    height :100,
-    width: 100,
-  },
-  GridViewContainer: {
-   flex:1,
-   justifyContent: 'flex-start',
-   alignItems: 'center',
-   height: 200,
-   margin: 5,
-   backgroundColor: '#009688'
-},
-GridViewTextLayout: {
-  
-   fontSize: 15,
-   fontWeight: 'bold',
-   justifyContent: 'flex-end',
-   color: '#fff',
-   padding: 0,
- }
-});

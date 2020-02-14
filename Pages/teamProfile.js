@@ -2,6 +2,7 @@
 import React from 'react';
 import { FlatList, Text, View ,Image , StyleSheet , Button , TouchableOpacity} from 'react-native';
 import { openDatabase } from 'react-native-sqlite-storage';
+import styles from './teamProfileCSS'
 function openCB() {
   console.log("database open");
 }
@@ -66,53 +67,3 @@ export default class teamProfile extends React.Component {
   }
 }
 
-const styles= StyleSheet.create({
-  image:{
-    width: 60,
-    height: 60,
-  },
-  body: {
-    padding:30,
-    backgroundColor :"#E6E6FA",
-  },
-  box: {
-    marginTop:5,
-    marginBottom:5,
-    backgroundColor: '#FFFFFF',
-    flexDirection: 'row',
-    shadowColor: 'black',
-    shadowOpacity: .2,
-    shadowOffset: {
-      height:1,
-      width:-2
-    },
-    elevation:2
-  },
-  username:{
-    color: "#20B2AA",
-    fontSize:22,
-    alignSelf:'center',
-    marginLeft:10
-  },
-  iconContent:{
-    width: 60,
-    height: 60,
-    backgroundColor: '#40E0D0',
-    marginLeft: 'auto',
-    alignItems: 'center'
-  },
-  icon:{
-    width: 40,
-    height: 40,
-  },
-  container: {
-    padding: 10,
-    marginTop: 3,
-    height:50,
-    backgroundColor: '#d9f9b1',
-    alignItems: 'center',
- },
- text: {
-    color: '#4f603c'
- }
-});
