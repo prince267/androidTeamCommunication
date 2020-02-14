@@ -3,10 +3,10 @@ import React from 'react';
 import { View } from 'react-native';
 import Mybutton from '../components/Mybutton';
 export default class HomeScreen extends React.Component {
-    static navigationOptions = {
-        title: "Messenger",
-        //Sets Header text of Status Bar
-      };
+  static navigationOptions = {
+    title: "Messenger",
+    //Sets Header text of Status Bar
+  };
   constructor(props) {
     super(props)
 
@@ -23,16 +23,16 @@ export default class HomeScreen extends React.Component {
           title="Team Profile"
           customClick={() => this.props.navigation.navigate('teamProfile')}
         />
-          <Mybutton
+        <Mybutton
           title="Seen Messages"
-          customClick={() => this.props.navigation.navigate('seenMessages',{seenOrUnSeen :1})}
+          customClick={() => this.props.navigation.navigate('seenMessages', { seenOrUnSeen: 1 })}
         />
         <Mybutton
           title="Unseen Messages"
-          customClick={() => this.props.navigation.navigate('seenMessages',{ seenOrUnSeen :0})}
+          customClick={() => this.props.navigation.navigate('seenMessages', { seenOrUnSeen: 0 })}
         />
       </View>
-      
+
     );
   }
 }
