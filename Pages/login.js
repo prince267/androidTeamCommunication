@@ -8,7 +8,7 @@ import {
   TouchableOpacity,
   AsyncStorage,
 } from 'react-native';
-import styles from './loginCSS'
+import styles from './loginCSS';
 export default class Login extends Component {
 
   constructor(props) {

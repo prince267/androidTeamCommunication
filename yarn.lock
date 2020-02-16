@@ -1051,6 +1051,13 @@
   resolved "https://registry.yarnpkg.com/@react-native-community/masked-view/-/masked-view-0.1.6.tgz#c7f2ac187c1f25aa8c30d11baa8f4398eca3bb84"
   integrity sha512-PpMoeXwPUoldCRKDuSi+zK5rT+sJTW6ri6RdGPkSKRzU77Q1d9IaR0O5IKvBj0XSdL3p+dcOa05gk35aGDffBQ==
 
+"@react-native-community/push-notification-ios@^1.0.1":
+  version "1.0.6"
+  resolved "https://registry.yarnpkg.com/@react-native-community/push-notification-ios/-/push-notification-ios-1.0.6.tgz#d0e90ec91139a6dfa043a572d41fe694db58bf54"
+  integrity sha512-aTFlFZcYhkPgqq7IdktkubqaG0hVHuSEerjGkR0IwVljbkEahqKMJzTWjVH95YcgEEkPLDqYv39Ie7WYfQdndA==
+  dependencies:
+    invariant "^2.2.4"
+
 "@react-navigation/core@^3.5.2":
   version "3.5.2"
   resolved "https://registry.yarnpkg.com/@react-navigation/core/-/core-3.5.2.tgz#3a3d147b8419e5839e0f2ad4dea086bd2d307fe3"
@@ -5539,6 +5546,13 @@ react-native-iphone-x-helper@^1.2.1:
   version "1.2.1"
   resolved "https://registry.yarnpkg.com/react-native-iphone-x-helper/-/react-native-iphone-x-helper-1.2.1.tgz#645e2ffbbb49e80844bb4cbbe34a126fda1e6772"
   integrity sha512-/VbpIEp8tSNNHIvstuA3Swx610whci1Zpc9mqNkqn14DkMbw+ORviln2u0XyHG1kPvvwTNGZY6QpeFwxYaSdbQ==
+
+react-native-push-notification@^3.1.9:
+  version "3.1.9"
+  resolved "https://registry.yarnpkg.com/react-native-push-notification/-/react-native-push-notification-3.1.9.tgz#760ee06e743fef74fc9fcb672dac40794fdc4c47"
+  integrity sha512-YpEg9AYBjNgJtHRgHKR0xPB7kk3Gj0uSjUxd0feOIvd7wrfR+zeiBM4NZonGmjlAG6thaE37dfAG5qcsONFM7w==
+  dependencies:
+    "@react-native-community/push-notification-ios" "^1.0.1"
 
 react-native-safe-area-context@^0.7.0:
   version "0.7.0"
