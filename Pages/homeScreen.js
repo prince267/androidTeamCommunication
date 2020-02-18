@@ -43,12 +43,8 @@ export default class HomeScreen extends React.Component {
     let response = await fetch(`https://api.myjson.com/bins/1894wk`);
     let data = await response.json()
     this.setState({ count: this.state.count + 1 });
-    // data[0].team.forEach(function (item) {
       data.MemberActivity.map((item) =>{
       console.log("Member Id",item.memberId)
-      // console.log("Activity Descripotion",item.activityDescription)
-      // console.log("arrivalTime",item.arrivalTime)
-      // console.log("seenDateTime   ",item.seenDateTime)
       console.log("***********************************")
       db.transaction((tx)=> {
         console.log("executing *****")
@@ -62,7 +58,6 @@ export default class HomeScreen extends React.Component {
               console.log("newdata added");
               console.log("no. of Data :", this.state.a );
               this.notif.localNotif({notifMsg:`New Message From Id ${item.memberId}`,message:item.activityDescription});
-              // this.setState({a:this.state.a+1});
             } ;
           }
         );
@@ -95,7 +90,7 @@ export default class HomeScreen extends React.Component {
   }
   onNotif(notif) {
     console.log(notif);
-    Alert.alert(notif.title, notif.message);
+    this.props.navigation.navigate('seenMessages', { seenOrUnSeen: 0 })
   }
 
   handlePerm(perms) {
