@@ -48,7 +48,7 @@ export default class NotifService {
       autoCancel: true, // (optional) default: true
       largeIcon: "ic_launcher", // (optional) default: "ic_launcher"
       smallIcon: "ic_notification", // (optional) default: "ic_notification" with fallback for "ic_launcher"
-      bigText: params.msg, // (optional) default: "message" prop
+      bigText: params.notifMsg, // (optional) default: "message" prop
       // subText: "This is a subText", // (optional) default: none
       color: "red", // (optional) default: system default
       vibrate: true, // (optional) default: true

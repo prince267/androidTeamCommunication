@@ -14,7 +14,7 @@ function errorCB(err) {
 var db = openDatabase({ name: 'Team_lead.db', createFromLocation: 1 }, openCB, errorCB);
 export default class HomeScreen extends React.Component {
   static navigationOptions = {
-    title: "Messenger",
+    title: "Home Screen",
     //Sets Header text of Status Bar
   };
   constructor(props) {
