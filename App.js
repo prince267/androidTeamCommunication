@@ -18,7 +18,7 @@ import seenMessages from './Pages/seenMessages'
 const App = createStackNavigator({
   HomeScreen: { screen: HomeScreen },
   Message: { screen: Message },
-  Login: { screen: Login },
+  // Login: { screen: Login },
   seenMessages: { screen: seenMessages },
   //Constant which holds all the screens like index of any book 
   teamProfile: { screen: teamProfile },
@@ -26,7 +26,7 @@ const App = createStackNavigator({
   memberdisplay: { screen: memberdisplay },
 },
   {
-    initialRouteName: 'Login',
+    initialRouteName: 'HomeScreen',
   }
 );
 export default createAppContainer(App);
