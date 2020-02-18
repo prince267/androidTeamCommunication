@@ -23,7 +23,7 @@ export default class Notification extends React.Component {
     render() {
         return (
             <View>
-                <Text style={[styles.noti, { top: this.state.top }]}>{this.props.count}</Text>
+                <Text style={[styles.noti, { top: this.state.top }]}>New Msg</Text>
             </View>
         );
     }
@@ -31,7 +31,7 @@ export default class Notification extends React.Component {
 
 const styles = StyleSheet.create({
     noti: {
-        backgroundColor: 'black',
+        backgroundColor: 'grey',
         color: 'white',
         padding: 16,
         position: "absolute",

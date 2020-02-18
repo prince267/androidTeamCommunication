@@ -1,8 +1,9 @@
 /*Home Screen With buttons to navigate to different options*/
 import React from 'react';
-import { View,Alert } from 'react-native';
+import { View,Alert,Text } from 'react-native';
 import Mybutton from '../components/Mybutton';
 import NotifService from '../NotifService';
+import Notification from '../notification'
 import { openDatabase } from 'react-native-sqlite-storage';
 function openCB() {
   console.log("database open");
@@ -42,7 +43,7 @@ export default class HomeScreen extends React.Component {
     console.log("################################################")
     let response = await fetch(`https://api.myjson.com/bins/1894wk`);
     let data = await response.json()
-    this.setState({ count: this.state.count + 1 });
+    this.setState({a:0})
       data.MemberActivity.map((item) =>{
       console.log("Member Id",item.memberId)
       console.log("***********************************")
@@ -64,6 +65,15 @@ export default class HomeScreen extends React.Component {
       });
     })
   }
+
+  display(){
+    if(this.state.a>0){
+      return <Notification/>
+    }
+    else{
+      return null
+    }
+  }
   render() {
     return (
       <View
@@ -72,6 +82,7 @@ export default class HomeScreen extends React.Component {
           backgroundColor: 'white',
           flexDirection: 'column',
         }}>
+    {this.display()}
         <Mybutton
           title="Team Profile"
           customClick={() => this.props.navigation.navigate('teamProfile')}
