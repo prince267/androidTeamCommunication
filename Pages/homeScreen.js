@@ -1,6 +1,6 @@
 /*Home Screen With buttons to navigate to different options*/
 import React from 'react';
-import { View,Alert,Text } from 'react-native';
+import { View,Alert,Text ,ScrollView} from 'react-native';
 import Mybutton from '../components/Mybutton';
 import NotifService from '../NotifService';
 import Notification from '../notification'
@@ -76,6 +76,7 @@ export default class HomeScreen extends React.Component {
   }
   render() {
     return (
+      <ScrollView>
       <View
         style={{
           flex: 1,
@@ -96,7 +97,7 @@ export default class HomeScreen extends React.Component {
           customClick={() => this.props.navigation.navigate('seenMessages', { seenOrUnSeen: 0 })}
         />
       </View>
-
+      </ScrollView>
     );
   }
   onNotif(notif) {

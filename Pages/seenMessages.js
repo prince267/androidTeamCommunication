@@ -1,6 +1,6 @@
 /*Screen to view all the user*/
 import React from 'react';
-import { FlatList, Text, View, Image, StyleSheet, Button, TouchableOpacity } from 'react-native';
+import { FlatList, Text, View, Image, StyleSheet, Button, TouchableOpacity ,ScrollView} from 'react-native';
 import { openDatabase } from 'react-native-sqlite-storage';
 //Connction to access the pre-populated user_db.db
 import styles from './seenMessagesCSS'
@@ -57,7 +57,7 @@ export default class seenMessages extends React.Component {
   render() {
     const { navigate } = this.props.navigation;
     return (
-      <View >
+      <ScrollView >
         <View style={styles.body}>
           <View>
             <Text>MemberActivity</Text>
@@ -116,7 +116,7 @@ export default class seenMessages extends React.Component {
             }
           </View>
         </View>
-      </View>
+      </ScrollView>
     );
   }
 }

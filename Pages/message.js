@@ -5,6 +5,7 @@ import {
   View,
   Navigator,
   TextInput,
+  ScrollView,
   TouchableOpacity,
   AsyncStorage,
   Image
@@ -74,6 +75,7 @@ export default class Message extends Component {
   render() {
     const { navigate } = this.props.navigation;
     return (
+      <ScrollView>
       <View style={styles.container}>
         <View style={styles.content}>
           <Text style={styles.logo}>Messege</Text>
@@ -94,6 +96,7 @@ export default class Message extends Component {
 
         </View>
       </View>
+      </ScrollView>
     );
   }
 

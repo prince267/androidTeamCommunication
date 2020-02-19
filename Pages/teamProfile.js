@@ -1,6 +1,6 @@
 /*Screen to view all the user*/
 import React from 'react';
-import { Text, View, Image, TouchableOpacity } from 'react-native';
+import { Text, View, Image, TouchableOpacity ,ScrollView} from 'react-native';
 import { openDatabase } from 'react-native-sqlite-storage';
 import styles from './teamProfileCSS'
 function openCB() {
@@ -43,6 +43,7 @@ export default class teamProfile extends React.Component {
   render() {
     const { navigate } = this.props.navigation;
     return (
+      <ScrollView>
       <View >
         <View style={styles.body}>
           {
@@ -65,6 +66,7 @@ export default class teamProfile extends React.Component {
           }
         </View>
       </View>
+      </ScrollView>
     );
   }
 }
