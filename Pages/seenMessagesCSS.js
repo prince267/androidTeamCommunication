@@ -8,6 +8,7 @@ export default StyleSheet.create({
     body: {
         padding: 30,
         backgroundColor: "#E6E6FA",
+        height:250
     },
     box: {
         marginTop: 5,

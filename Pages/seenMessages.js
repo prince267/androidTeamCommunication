@@ -1,6 +1,6 @@
 /*Screen to view all the user*/
 import React from 'react';
-import { FlatList, Text, View, Image, StyleSheet, Button, TouchableOpacity ,ScrollView} from 'react-native';
+import { Text, View, TouchableOpacity, ScrollView } from 'react-native';
 import { openDatabase } from 'react-native-sqlite-storage';
 //Connction to access the pre-populated user_db.db
 import styles from './seenMessagesCSS'
@@ -15,7 +15,7 @@ var db = openDatabase({ name: 'Team_lead.db', createFromLocation: 1 }, openCB, e
 
 export default class seenMessages extends React.Component {
   static navigationOptions = {
-    title: "Mesaages ",
+    title: "Messages ",
     //Sets Header text of Status Bar
   };
   constructor(props) {
@@ -27,40 +27,50 @@ export default class seenMessages extends React.Component {
       memberMessages: [],
       seniorManagerMessages: []
     };
-    db.transaction(tx => {
-      tx.executeSql(`select * from MemberActivity where seenOrUnseen=${this.state.seenOrUnSeen};`, [], (tx, results) => {
-        var temp = [];
-        for (let i = 0; i < results.rows.length; ++i) {
-          temp.push(results.rows.item(i));
-        }
-        console.log(temp)
-        this.setState({
-          memberMessages: temp,
+  }
+  componentDidMount() {
+    const { navigation } = this.props;
+    this.focusListener = navigation.addListener('didFocus', () => {
+      db.transaction(tx => {
+        tx.executeSql(`select * from MemberActivity where seenOrUnseen=${this.state.seenOrUnSeen};`, [], (tx, results) => {
+          var temp = [];
+          for (let i = 0; i < results.rows.length; ++i) {
+            temp.push(results.rows.item(i));
+          }
+          console.log("Message Displayed")
+          this.setState({
+            memberMessages: temp,
+          });
         });
       });
-    });
-    db.transaction(tx => {
-      tx.executeSql(`select * from seniorManagerReporting where seenOrUnseen=${this.state.seenOrUnSeen};`, [], (tx, results) => {
-        var temp = [];
-        for (let i = 0; i < results.rows.length; ++i) {
-          temp.push(results.rows.item(i));
-        }
-        console.log(temp)
-        this.setState({
-          seniorManagerMessages: temp,
+      db.transaction(tx => {
+        tx.executeSql(`select * from seniorManagerReporting where seenOrUnseen=${this.state.seenOrUnSeen};`, [], (tx, results) => {
+          var temp = [];
+          for (let i = 0; i < results.rows.length; ++i) {
+            temp.push(results.rows.item(i));
+          }
+          console.log("Message Displayed")
+          this.setState({
+            seniorManagerMessages: temp,
+          });
         });
       });
     });
   };
+  componentWillUnmount() {
+    // Remove the event listener before removing the screen from the stack
+    this.focusListener.remove();
+  }
 
 
   render() {
     const { navigate } = this.props.navigation;
     return (
-      <ScrollView >
+      <ScrollView style={{ flex: 1 }}>
         <View style={styles.body}>
-          <View>
-            <Text>MemberActivity</Text>
+          <Text>MemberActivity</Text>
+          <ScrollView>
+
             {
               this.state.memberMessages.map((item, index) => (
                 <TouchableOpacity
@@ -86,11 +96,11 @@ export default class seenMessages extends React.Component {
                 </TouchableOpacity>
               ))
             }
-          </View>
+          </ScrollView>
         </View>
         <View style={styles.body}>
-          <View>
-            <Text>Senior Manager Reporting</Text>
+          <Text>Senior Manager Reporting</Text>
+          <ScrollView>
             {
               this.state.seniorManagerMessages.map((item, index) => (
                 <TouchableOpacity
@@ -114,7 +124,7 @@ export default class seenMessages extends React.Component {
                 </TouchableOpacity>
               ))
             }
-          </View>
+          </ScrollView>
         </View>
       </ScrollView>
     );

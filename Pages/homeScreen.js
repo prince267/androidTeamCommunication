@@ -40,15 +40,13 @@ export default class HomeScreen extends React.Component {
 
   async getData() {
     // this.setState({a:0})
-    console.log("################################################")
+    try{
     let response = await fetch(`https://api.myjson.com/bins/1894wk`);
     let data = await response.json()
+    console.log("******* DATA FETCHED *********")
     this.setState({a:0})
       data.MemberActivity.map((item) =>{
-      console.log("Member Id",item.memberId)
-      console.log("***********************************")
       db.transaction((tx)=> {
-        console.log("executing *****")
         tx.executeSql(
           'INSERT INTO MemberActivity (memberId, activitySerialNo, activityDescription,arrivalTime,seenDateTime,activityImage,seenOrUnseen) VALUES (?,?,?,?,?,?,?)',
           [item.memberId, item.activitySerialNo, item.activityDescription, item.arrivalTime,item.seenDateTime,item.activityImage,item.seenOrUnseen],
@@ -64,7 +62,10 @@ export default class HomeScreen extends React.Component {
         );
       });
     })
+  }catch(error){
+    console.log("failed to fetch data", error);
   }
+}
 
   display(){
     if(this.state.a>0){

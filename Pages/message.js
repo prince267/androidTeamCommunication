@@ -1,13 +1,9 @@
 import React, { Component } from 'react';
 import {
-  StyleSheet,
   Text,
   View,
-  Navigator,
-  TextInput,
   ScrollView,
   TouchableOpacity,
-  AsyncStorage,
   Image
 } from 'react-native';
 import styles from './messageCSS'
@@ -76,26 +72,26 @@ export default class Message extends Component {
     const { navigate } = this.props.navigation;
     return (
       <ScrollView>
-      <View style={styles.container}>
-        <View style={styles.content}>
-          <Text style={styles.logo}>Messege</Text>
+        <View style={styles.container}>
+          <View style={styles.content}>
+            <Text style={styles.logo}>Messege</Text>
 
-          <TouchableOpacity style={styles.buttonContainer}>
-            <Image style={styles.image} source={{}} />
-            <Text style={styles.buttonText}>Manager Id/Member Id: {this.state.memberId}{"\n"}</Text>
-            <Text style={styles.buttonText}>Report Id/Serial No: {this.state.messageId}{"\n"}</Text>
-            <Text style={styles.buttonText}>Reference Id: {this.state.referenceId}{"\n"}</Text>
-            <Text style={styles.buttonText}>Message Body:{"\n"}{this.state.message}{"\n"}</Text>
-            <Text style={styles.buttonText}>Time: {this.state.time}{"\n"}</Text>
-            <TouchableOpacity
-              onPress={() => navigate('HomeScreen')}
-              style={styles.backButtonContainer}>
-              <Text style={styles.backButtonText}>Home</Text>
+            <TouchableOpacity style={styles.buttonContainer}>
+              <Image style={styles.image} source={{}} />
+              <Text style={styles.buttonText}>Manager Id/Member Id: {this.state.memberId}{"\n"}</Text>
+              <Text style={styles.buttonText}>Report Id/Serial No: {this.state.messageId}{"\n"}</Text>
+              <Text style={styles.buttonText}>Reference Id: {this.state.referenceId}{"\n"}</Text>
+              <Text style={styles.buttonText}>Message Body:{"\n"}{this.state.message}{"\n"}</Text>
+              <Text style={styles.buttonText}>Time: {this.state.time}{"\n"}</Text>
+              <TouchableOpacity
+                onPress={() => navigate('HomeScreen')}
+                style={styles.backButtonContainer}>
+                <Text style={styles.backButtonText}>Home</Text>
+              </TouchableOpacity>
             </TouchableOpacity>
-          </TouchableOpacity>
 
+          </View>
         </View>
-      </View>
       </ScrollView>
     );
   }
