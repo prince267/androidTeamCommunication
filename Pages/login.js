@@ -10,18 +10,45 @@ import {
   AsyncStorage,
 } from 'react-native';
 import styles from './loginCSS';
+import { openDatabase } from 'react-native-sqlite-storage';
+function openCB() {
+  console.log("database open");
+}
+function errorCB(err) {
+  alert("error: " + err);
+  return false;
+}
+var db = openDatabase({ name: 'Team_lead.db', createFromLocation: 1 }, openCB, errorCB);
+//Connction to access the pre-populated user_db.db
 export default class Login extends Component {
 
   constructor(props) {
     super(props);
-    this.state = { username: '', password: '' };
+    this.state = { 
+      username: '', 
+      password: '',
+      isLogin: false
+    };
   }
 
-  login = (navigate) => {
-    if (this.state.username === "prince" && this.state.password === "test123") {
-      navigate('teamProfile')
-
-    }
+ login (){
+   const {navigate} = this.props.navigation
+   
+     db.transaction(tx => {
+       this.setState({isLogin:false});
+      tx.executeSql(`SELECT teamId FROM team WHERE teamId="${this.state.username}" AND teamPassword="${this.state.password}"`, [], (tx, results) => {
+        if (results.rows.length){
+        this.setState({
+          isLogin: true,
+        });
+      };
+      if(this.state.isLogin){
+         navigate('HomeScreen') 
+      }
+      else{ 
+        alert("wrong credentials")
+      }})
+    });
   };
 
   render() {
@@ -50,8 +77,13 @@ export default class Login extends Component {
               />
 
               <TouchableOpacity
-                onPress={() => (this.state.username == "P" && this.state.password == "0") ?
-                  navigate('HomeScreen') : alert("wrong credentials")}
+                onPress={() => {
+                  // alert(this.state.isLogin)
+                  
+                  this.login() ;
+          
+                  // this.state.isLogin ? alert("logi") : alert ("no")
+                }}
                 style={styles.buttonContainer}>
                 <Text style={styles.buttonText}>LOGIN</Text>
               </TouchableOpacity>
