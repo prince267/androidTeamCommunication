@@ -13,12 +13,14 @@ import teamProfile from './Pages/teamProfile';
 import memberdisplay from './Pages/memberdisplay';
 import Message from './Pages/message'
 import Login from './Pages/login'
+import Reply from './Pages/reply'
 import seenMessages from './Pages/seenMessages'
 //import all the screens we are going to switch 
 const App = createStackNavigator({
   HomeScreen: { screen: HomeScreen },
   Message: { screen: Message },
   Login: { screen: Login },
+  Reply : { screen : Reply},
   seenMessages: { screen: seenMessages },
   //Constant which holds all the screens like index of any book 
   teamProfile: { screen: teamProfile },

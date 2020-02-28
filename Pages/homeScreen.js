@@ -22,7 +22,8 @@ export default class HomeScreen extends React.Component {
     super(props)
     this.state={
       count: 0,
-      a:0
+      a:0,
+      teamId:this.props.navigation.state.params.teamId
     }
     this.notif = new NotifService(this.onNotif.bind(this));
     // // this.notif.localNotif();
@@ -41,27 +42,47 @@ export default class HomeScreen extends React.Component {
   async getData() {
     // this.setState({a:0})
     try{
-    let response = await fetch(`https://api.myjson.com/bins/1894wk`);
+    let response = await fetch(`https://api.myjson.com/bins/12tv74`);
     let data = await response.json()
     console.log("******* DATA FETCHED *********")
     this.setState({a:0})
-      data.MemberActivity.map((item) =>{
+      data.memberActivity.map((item) =>{
       db.transaction((tx)=> {
         tx.executeSql(
-          'INSERT INTO MemberActivity (memberId, activitySerialNo, activityDescription,arrivalTime,seenDateTime,activityImage,seenOrUnseen) VALUES (?,?,?,?,?,?,?)',
-          [item.memberId, item.activitySerialNo, item.activityDescription, item.arrivalTime,item.seenDateTime,item.activityImage,item.seenOrUnseen],
+          'INSERT INTO memberActivity (memberId, activitySerialNo, activityDescription,arrivalDateTime,seenDateTime,activityImage,seenOrUnseen) VALUES (?,?,?,?,?,?,?)',
+          [item.memberId, item.activitySerialNo, item.activityDescription, item.arrivalDateTime,item.seenDateTime,item.activityImage,item.seenOrUnseen],
           (tx, results) => {
             console.log('Results', results);
             if (results.rowsAffected > 0) {
               this.setState({a:this.state.a+1})
               console.log("newdata added");
-              console.log("no. of Data :", this.state.a );
               this.notif.localNotif({notifMsg:`New Message From Id ${item.memberId}`,message:item.activityDescription});
             } ;
           }
         );
       });
     })
+    console.log("no. of Data Added in memberActivity:", this.state.a );
+    this.setState({a:0})
+    data.seniorManagerReporting.map((item) =>{
+      db.transaction((tx)=> {
+        tx.executeSql(
+          'INSERT INTO seniorManagerReporting (managerId,memberId,reportId,reportText,refPastReportId,arrivalDateTime,seenDateTime,seenOrUnseen) VALUES (?,?,?,?,?,?,?,?)',
+          [item.managerId, item.memberId, item.reportId, item.reportText,item.refPastReportId, item.arrivalDateTime,item.seenDateTime,item.seenOrUnseen],
+          (tx, results) => {
+            console.log('Results', results);
+            if (results.rowsAffected > 0) {
+              this.setState({a:this.state.a+1})
+              console.log("newdata added");
+              console.log("no. of Data :", this.state.a );
+              this.notif.localNotif({notifMsg:`New Message From Id ${item.managerId}`,message:item.reportText});
+            } ;
+          }
+        );
+      });
+      // console.log([item.managerId, item.memberId, item.reportId, item.reportText,item.refPastReportId, item.arrivalDateTime,item.seenDateTime,item.seenOrUnseen])
+    })
+    console.log("no. of Data Added in Senior Manager Reporting:", this.state.a );
   }catch(error){
     console.log("failed to fetch data", error);
   }
@@ -87,7 +108,9 @@ export default class HomeScreen extends React.Component {
     {this.display()}
         <Mybutton
           title="Team Profile"
-          customClick={() => this.props.navigation.navigate('teamProfile')}
+          customClick={() => this.props.navigation.navigate('teamProfile',{
+            teamId:this.state.teamId
+          })}
         />
         <Mybutton
           title="Seen Messages"
@@ -96,6 +119,10 @@ export default class HomeScreen extends React.Component {
         <Mybutton
           title="Unseen Messages"
           customClick={() => this.props.navigation.navigate('seenMessages', { seenOrUnSeen: 0 })}
+        />
+        <Mybutton
+          title="New Messages"
+          customClick={() => this.props.navigation.navigate('Reply', { isReply: 0 })}
         />
       </View>
       </ScrollView>

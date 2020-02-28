@@ -26,7 +26,7 @@ export default class Message extends Component {
       messageId: this.props.navigation.state.params.messageId,
       message: this.props.navigation.state.params.message,
       time: this.props.navigation.state.params.time,
-      referenceId: "NULL",
+      referenceId: this.props.navigation.state.params.referenceId,
       seenOrUnSeen: this.props.navigation.state.params.seenOrUnSeen,
     };
     console.log("seen is ", this.state.seenOrUnSeen);
@@ -83,12 +83,26 @@ export default class Message extends Component {
               <Text style={styles.buttonText}>Reference Id: {this.state.referenceId}{"\n"}</Text>
               <Text style={styles.buttonText}>Message Body:{"\n"}{this.state.message}{"\n"}</Text>
               <Text style={styles.buttonText}>Time: {this.state.time}{"\n"}</Text>
+              <View style={{flex:1 , flexDirection: 'row',
+    justifyContent: 'space-between'}}>
               <TouchableOpacity
                 onPress={() => navigate('HomeScreen')}
                 style={styles.backButtonContainer}>
                 <Text style={styles.backButtonText}>Home</Text>
               </TouchableOpacity>
+              <TouchableOpacity
+                onPress={() => navigate('Reply',{
+                  isReply:1,
+                  memberId:this.state.memberId,
+                  managerId:this.state.managerId,
+                  pastReportId: this.state.memberId
+                })}
+                style={styles.backButtonContainer}>
+                <Text style={styles.backButtonText}>Reply</Text>
+              </TouchableOpacity>
+              </View>
             </TouchableOpacity>
+            
 
           </View>
         </View>

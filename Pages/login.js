@@ -43,7 +43,9 @@ export default class Login extends Component {
         });
       };
       if(this.state.isLogin){
-         navigate('HomeScreen') 
+         navigate('HomeScreen',{
+           teamId: this.state.username
+         }) 
       }
       else{ 
         alert("wrong credentials")

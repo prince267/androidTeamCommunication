@@ -23,10 +23,11 @@ export default class teamProfile extends React.Component {
     super(props);
     this.state = {
       FlatListItems: [],
+      teamId:this.props.navigation.state.params.teamId
     };
 
     db.transaction(tx => {
-      tx.executeSql('SELECT * FROM teamMembers', [], (tx, results) => {
+      tx.executeSql(`SELECT * FROM teamMembers where teamId="${this.state.teamId}"`, [], (tx, results) => {
         var temp = [];
         // this.setState({count:results.rows.length})
         for (let i = 0; i < results.rows.length; ++i) {
