@@ -1,6 +1,6 @@
 /*Screen to view all the user*/
 import React from 'react';
-import { Text, View, TouchableOpacity, ScrollView } from 'react-native';
+import { Text, View, TouchableOpacity, ScrollView ,Image} from 'react-native';
 import { openDatabase } from 'react-native-sqlite-storage';
 //Connction to access the pre-populated user_db.db
 import styles from './seenMessagesCSS'
@@ -85,10 +85,14 @@ export default class seenMessages extends React.Component {
                       time: item.seenDateTime,
                       referenceId: "NULL",
                       seenOrUnSeen: item.seenOrUnseen,
+                      activityImage: item.activityImage
                     });
                   }}
                 >
                   <View style={styles.box}>
+                  <Image source = {{uri:item.activityImage}}
+   style = {{ width: 27, height: 27}}
+   /> 
                     <Text style={styles.username}>
                       {item.activityDescription}
                     </Text>
@@ -114,6 +118,7 @@ export default class seenMessages extends React.Component {
                     time: item.seenDateTime,
                     referenceId: item.refPastReportId,
                     seenOrUnSeen: item.seenOrUnseen,
+                    activityImage: 'null'
                   })}
                 >
                   <View style={styles.box}>

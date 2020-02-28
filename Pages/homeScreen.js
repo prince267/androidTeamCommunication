@@ -1,6 +1,6 @@
 /*Home Screen With buttons to navigate to different options*/
 import React from 'react';
-import { View,Alert,Text ,ScrollView} from 'react-native';
+import { View,Alert,Text ,ScrollView,Image} from 'react-native';
 import Mybutton from '../components/Mybutton';
 import NotifService from '../NotifService';
 import Notification from '../notification'
@@ -42,7 +42,7 @@ export default class HomeScreen extends React.Component {
   async getData() {
     // this.setState({a:0})
     try{
-    let response = await fetch(`https://api.myjson.com/bins/12tv74`);
+    let response = await fetch(`https://api.myjson.com/bins/17ndf0`);
     let data = await response.json()
     console.log("******* DATA FETCHED *********")
     this.setState({a:0})
@@ -99,7 +99,7 @@ export default class HomeScreen extends React.Component {
   render() {
     return (
       <ScrollView>
-      <View
+        <View
         style={{
           flex: 1,
           backgroundColor: 'white',

@@ -62,7 +62,7 @@ export default class memberdisplay extends React.Component {
               <Text style={styles.GridViewTextLayout}>Id: {item.memberId}</Text>
               <Text style={styles.GridViewTextLayout}>Name: {item.memberName}</Text>
               <Text style={styles.GridViewTextLayout}>Email Id: {item.emailId}</Text>
-              <Text style={styles.GridViewTextLayout}>Phone:  {item.Phone}</Text>
+              <Text style={styles.GridViewTextLayout}>Phone:  {item.phone}</Text>
 
             </View>
           )}

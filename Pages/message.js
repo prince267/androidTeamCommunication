@@ -28,6 +28,7 @@ export default class Message extends Component {
       time: this.props.navigation.state.params.time,
       referenceId: this.props.navigation.state.params.referenceId,
       seenOrUnSeen: this.props.navigation.state.params.seenOrUnSeen,
+      activityImage: this.props.navigation.state.params.activityImage
     };
     console.log("seen is ", this.state.seenOrUnSeen);
     if (!this.state.seenOrUnSeen) {
@@ -67,6 +68,25 @@ export default class Message extends Component {
     }
   }
 
+  imageDisplay(){
+    if(this.state.activityImage!= 'null'){
+      console.log("activity Image ",this.state.activityImage)
+      return (
+      <View style={{justifyContent: 'center',
+    alignItems: 'center'}}>
+            {/* <Image source = {{uri:'https://shorturl.at/hoq28'}}
+   style = {{ width: 80, height: 80,marginBottom:16 }}
+   /> */}
+   <Image source = {{uri:this.state.activityImage}}
+   style = {{ width: 80, height: 80,marginBottom:16 }}
+   />
+   
+   </View>)
+    }
+    else{
+      return null
+    }
+  }
 
   render() {
     const { navigate } = this.props.navigation;
@@ -75,9 +95,8 @@ export default class Message extends Component {
         <View style={styles.container}>
           <View style={styles.content}>
             <Text style={styles.logo}>Messege</Text>
-
             <TouchableOpacity style={styles.buttonContainer}>
-              <Image style={styles.image} source={{}} />
+              {this.imageDisplay()}   
               <Text style={styles.buttonText}>Manager Id/Member Id: {this.state.memberId}{"\n"}</Text>
               <Text style={styles.buttonText}>Report Id/Serial No: {this.state.messageId}{"\n"}</Text>
               <Text style={styles.buttonText}>Reference Id: {this.state.referenceId}{"\n"}</Text>
