@@ -3,6 +3,7 @@ import React from 'react';
 import { FlatList, Text, View, Image, StyleSheet } from 'react-native';
 import { openDatabase } from 'react-native-sqlite-storage';
 import styles from './memberdisplayCSS'
+import {DATA_BASE} from '../constant'
 //Connction to access the pre-populated user_db.db
 function openCB() {
   console.log("database open");
@@ -11,7 +12,7 @@ function errorCB(err) {
   alert("error: " + err);
   return false;
 }
-var db = openDatabase({ name: 'Team_lead.db', createFromLocation: 1 }, openCB, errorCB);
+var db = openDatabase({ name: DATA_BASE, createFromLocation: 1 }, openCB, errorCB);
 
 export default class memberdisplay extends React.Component {
   static navigationOptions = {

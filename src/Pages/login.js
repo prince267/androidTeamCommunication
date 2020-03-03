@@ -10,6 +10,7 @@ import {
   AsyncStorage,
 } from 'react-native';
 import styles from './loginCSS';
+import {DATA_BASE} from '../constant'
 import { openDatabase } from 'react-native-sqlite-storage';
 function openCB() {
   console.log("database open");
@@ -18,7 +19,7 @@ function errorCB(err) {
   alert("error: " + err);
   return false;
 }
-var db = openDatabase({ name: 'Team_lead.db', createFromLocation: 1 }, openCB, errorCB);
+var db = openDatabase({ name: DATA_BASE, createFromLocation: 1 }, openCB, errorCB);
 //Connction to access the pre-populated user_db.db
 export default class Login extends Component {
 

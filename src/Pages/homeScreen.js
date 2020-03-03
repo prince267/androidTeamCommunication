@@ -2,6 +2,7 @@
 import React from 'react';
 import { View,Alert,Text ,ScrollView,Image} from 'react-native';
 import Mybutton from '../components/Mybutton';
+import {DATA_BASE} from '../constant'
 import NotifService from '../NotifService';
 import Notification from '../notification'
 import { openDatabase } from 'react-native-sqlite-storage';
@@ -12,7 +13,7 @@ function errorCB(err) {
   alert("error: " + err);
   return false;
 }
-var db = openDatabase({ name: 'Team_lead.db', createFromLocation: 1 }, openCB, errorCB);
+var db = openDatabase({ name: DATA_BASE, createFromLocation: 1 }, openCB, errorCB);
 export default class HomeScreen extends React.Component {
   static navigationOptions = {
     title: "Home Screen",

@@ -8,13 +8,13 @@ import React, { Component } from 'react';
 import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 
-import HomeScreen from './Pages/homeScreen'
-import teamProfile from './Pages/teamProfile';
-import memberdisplay from './Pages/memberdisplay';
-import Message from './Pages/message'
-import Login from './Pages/login'
-import Reply from './Pages/reply'
-import seenMessages from './Pages/seenMessages'
+import HomeScreen from './src/Pages/homeScreen'
+import teamProfile from './src/Pages/teamProfile';
+import memberdisplay from './src/Pages/memberdisplay';
+import Message from './src/Pages/message'
+import Login from './src/Pages/login'
+import Reply from './src/Pages/reply'
+import seenMessages from './src/Pages/seenMessages'
 //import all the screens we are going to switch 
 const App = createStackNavigator({
   HomeScreen: { screen: HomeScreen },
