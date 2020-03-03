@@ -1,30 +1,23 @@
-/*Home Screen With buttons to navigate to different options*/
+/*Screen to view Main HomeScreen*/
 import React from 'react';
-import { View,Alert,Text ,ScrollView,Image} from 'react-native';
+import { View, Alert, ScrollView } from 'react-native';
 import Mybutton from '../components/Mybutton';
-import {DATA_BASE} from '../constant'
 import NotifService from '../NotifService';
 import Notification from '../notification'
-import { openDatabase } from 'react-native-sqlite-storage';
-function openCB() {
-  console.log("database open");
-}
-function errorCB(err) {
-  alert("error: " + err);
-  return false;
-}
-var db = openDatabase({ name: DATA_BASE, createFromLocation: 1 }, openCB, errorCB);
+import { databaseOpen } from '../api/dataBase'
+
+var db = databaseOpen();
+
 export default class HomeScreen extends React.Component {
   static navigationOptions = {
     title: "Home Screen",
-    //Sets Header text of Status Bar
   };
   constructor(props) {
     super(props)
-    this.state={
+    this.state = {
       count: 0,
-      a:0,
-      teamId:this.props.navigation.state.params.teamId
+      a: 0,
+      teamId: this.props.navigation.state.params.teamId
     }
     this.notif = new NotifService(this.onNotif.bind(this));
     // // this.notif.localNotif();
@@ -41,59 +34,58 @@ export default class HomeScreen extends React.Component {
   }
 
   async getData() {
-    // this.setState({a:0})
-    try{
-    let response = await fetch(`https://api.myjson.com/bins/17ndf0`);
-    let data = await response.json()
-    console.log("******* DATA FETCHED *********")
-    this.setState({a:0})
-      data.memberActivity.map((item) =>{
-      db.transaction((tx)=> {
-        tx.executeSql(
-          'INSERT INTO memberActivity (memberId, activitySerialNo, activityDescription,arrivalDateTime,seenDateTime,activityImage,seenOrUnseen) VALUES (?,?,?,?,?,?,?)',
-          [item.memberId, item.activitySerialNo, item.activityDescription, item.arrivalDateTime,item.seenDateTime,item.activityImage,item.seenOrUnseen],
-          (tx, results) => {
-            console.log('Results', results);
-            if (results.rowsAffected > 0) {
-              this.setState({a:this.state.a+1})
-              console.log("newdata added");
-              this.notif.localNotif({notifMsg:`New Message From Id ${item.memberId}`,message:item.activityDescription});
-            } ;
-          }
-        );
-      });
-    })
-    console.log("no. of Data Added in memberActivity:", this.state.a );
-    this.setState({a:0})
-    data.seniorManagerReporting.map((item) =>{
-      db.transaction((tx)=> {
-        tx.executeSql(
-          'INSERT INTO seniorManagerReporting (managerId,memberId,reportId,reportText,refPastReportId,arrivalDateTime,seenDateTime,seenOrUnseen) VALUES (?,?,?,?,?,?,?,?)',
-          [item.managerId, item.memberId, item.reportId, item.reportText,item.refPastReportId, item.arrivalDateTime,item.seenDateTime,item.seenOrUnseen],
-          (tx, results) => {
-            console.log('Results', results);
-            if (results.rowsAffected > 0) {
-              this.setState({a:this.state.a+1})
-              console.log("newdata added");
-              console.log("no. of Data :", this.state.a );
-              this.notif.localNotif({notifMsg:`New Message From Id ${item.managerId}`,message:item.reportText});
-            } ;
-          }
-        );
-      });
-      // console.log([item.managerId, item.memberId, item.reportId, item.reportText,item.refPastReportId, item.arrivalDateTime,item.seenDateTime,item.seenOrUnseen])
-    })
-    console.log("no. of Data Added in Senior Manager Reporting:", this.state.a );
-  }catch(error){
-    console.log("failed to fetch data", error);
-  }
-}
-
-  display(){
-    if(this.state.a>0){
-      return <Notification/>
+    try {
+      let response = await fetch(`https://api.myjson.com/bins/17ndf0`);
+      let data = await response.json()
+      console.log("******* DATA FETCHED *********")
+      this.setState({ a: 0 })
+      data.memberActivity.map((item) => {
+        db.transaction((tx) => {
+          tx.executeSql(
+            'INSERT INTO memberActivity (memberId, activitySerialNo, activityDescription,arrivalDateTime,seenDateTime,activityImage,seenOrUnseen) VALUES (?,?,?,?,?,?,?)',
+            [item.memberId, item.activitySerialNo, item.activityDescription, item.arrivalDateTime, item.seenDateTime, item.activityImage, item.seenOrUnseen],
+            (tx, results) => {
+              console.log('Results', results);
+              if (results.rowsAffected > 0) {
+                this.setState({ a: this.state.a + 1 })
+                console.log("newdata added");
+                this.notif.localNotif({ notifMsg: `New Message From Id ${item.memberId}`, message: item.activityDescription });
+              };
+            }
+          );
+        });
+      })
+      console.log("no. of Data Added in memberActivity:", this.state.a);
+      this.setState({ a: 0 })
+      data.seniorManagerReporting.map((item) => {
+        db.transaction((tx) => {
+          tx.executeSql(
+            'INSERT INTO seniorManagerReporting (managerId,memberId,reportId,reportText,refPastReportId,arrivalDateTime,seenDateTime,seenOrUnseen) VALUES (?,?,?,?,?,?,?,?)',
+            [item.managerId, item.memberId, item.reportId, item.reportText, item.refPastReportId, item.arrivalDateTime, item.seenDateTime, item.seenOrUnseen],
+            (tx, results) => {
+              console.log('Results', results);
+              if (results.rowsAffected > 0) {
+                this.setState({ a: this.state.a + 1 })
+                console.log("newdata added");
+                console.log("no. of Data :", this.state.a);
+                this.notif.localNotif({ notifMsg: `New Message From Id ${item.managerId}`, message: item.reportText });
+              };
+            }
+          );
+        });
+        // console.log([item.managerId, item.memberId, item.reportId, item.reportText,item.refPastReportId, item.arrivalDateTime,item.seenDateTime,item.seenOrUnseen])
+      })
+      console.log("no. of Data Added in Senior Manager Reporting:", this.state.a);
+    } catch (error) {
+      console.log("failed to fetch data", error);
     }
-    else{
+  }
+
+  display() {
+    if (this.state.a > 0) {
+      return <Notification />
+    }
+    else {
       return null
     }
   }
@@ -101,31 +93,31 @@ export default class HomeScreen extends React.Component {
     return (
       <ScrollView>
         <View
-        style={{
-          flex: 1,
-          backgroundColor: 'white',
-          flexDirection: 'column',
-        }}>
-    {this.display()}
-        <Mybutton
-          title="Team Profile"
-          customClick={() => this.props.navigation.navigate('teamProfile',{
-            teamId:this.state.teamId
-          })}
-        />
-        <Mybutton
-          title="Seen Messages"
-          customClick={() => this.props.navigation.navigate('seenMessages', { seenOrUnSeen: 1 })}
-        />
-        <Mybutton
-          title="Unseen Messages"
-          customClick={() => this.props.navigation.navigate('seenMessages', { seenOrUnSeen: 0 })}
-        />
-        <Mybutton
-          title="New Messages"
-          customClick={() => this.props.navigation.navigate('Reply', { isReply: 0 })}
-        />
-      </View>
+          style={{
+            flex: 1,
+            backgroundColor: 'white',
+            flexDirection: 'column',
+          }}>
+          {this.display()}
+          <Mybutton
+            title="Team Profile"
+            customClick={() => this.props.navigation.navigate('teamProfile', {
+              teamId: this.state.teamId
+            })}
+          />
+          <Mybutton
+            title="Seen Messages"
+            customClick={() => this.props.navigation.navigate('seenMessages', { seenOrUnSeen: 1 })}
+          />
+          <Mybutton
+            title="Unseen Messages"
+            customClick={() => this.props.navigation.navigate('seenMessages', { seenOrUnSeen: 0 })}
+          />
+          <Mybutton
+            title="New Messages"
+            customClick={() => this.props.navigation.navigate('Reply', { isReply: 0 })}
+          />
+        </View>
       </ScrollView>
     );
   }

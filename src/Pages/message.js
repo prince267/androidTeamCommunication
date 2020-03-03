@@ -7,16 +7,8 @@ import {
   Image
 } from 'react-native';
 import styles from './messageCSS'
-import {DATA_BASE} from '../constant'
-import { openDatabase } from 'react-native-sqlite-storage';
-function openCB() {
-  console.log("database open");
-}
-function errorCB(err) {
-  alert("error: " + err);
-  return false;
-}
-var db = openDatabase({ name: DATA_BASE, createFromLocation: 1 }, openCB, errorCB);
+import { databaseOpen } from '../api/dataBase'
+var db = databaseOpen();
 export default class Message extends Component {
   constructor(props) {
     super(props);
@@ -69,22 +61,24 @@ export default class Message extends Component {
     }
   }
 
-  imageDisplay(){
-    if(this.state.activityImage!= 'null'){
-      console.log("activity Image ",this.state.activityImage)
+  imageDisplay() {
+    if (this.state.activityImage != 'null') {
+      console.log("activity Image ", this.state.activityImage)
       return (
-      <View style={{justifyContent: 'center',
-    alignItems: 'center'}}>
-            {/* <Image source = {{uri:'https://shorturl.at/hoq28'}}
+        <View style={{
+          justifyContent: 'center',
+          alignItems: 'center'
+        }}>
+          {/* <Image source = {{uri:'https://shorturl.at/hoq28'}}
    style = {{ width: 80, height: 80,marginBottom:16 }}
    /> */}
-   <Image source = {{uri:this.state.activityImage}}
-   style = {{ width: 80, height: 80,marginBottom:16 }}
-   />
-   
-   </View>)
+          <Image source={{ uri: this.state.activityImage }}
+            style={{ width: 80, height: 80, marginBottom: 16 }}
+          />
+
+        </View>)
     }
-    else{
+    else {
       return null
     }
   }
@@ -97,32 +91,34 @@ export default class Message extends Component {
           <View style={styles.content}>
             <Text style={styles.logo}>Messege</Text>
             <TouchableOpacity style={styles.buttonContainer}>
-              {this.imageDisplay()}   
+              {this.imageDisplay()}
               <Text style={styles.buttonText}>Manager Id/Member Id: {this.state.memberId}{"\n"}</Text>
               <Text style={styles.buttonText}>Report Id/Serial No: {this.state.messageId}{"\n"}</Text>
               <Text style={styles.buttonText}>Reference Id: {this.state.referenceId}{"\n"}</Text>
               <Text style={styles.buttonText}>Message Body:{"\n"}{this.state.message}{"\n"}</Text>
               <Text style={styles.buttonText}>Time: {this.state.time}{"\n"}</Text>
-              <View style={{flex:1 , flexDirection: 'row',
-    justifyContent: 'space-between'}}>
-              <TouchableOpacity
-                onPress={() => navigate('HomeScreen')}
-                style={styles.backButtonContainer}>
-                <Text style={styles.backButtonText}>Home</Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                onPress={() => navigate('Reply',{
-                  isReply:1,
-                  memberId:this.state.memberId,
-                  managerId:this.state.managerId,
-                  pastReportId: this.state.memberId
-                })}
-                style={styles.backButtonContainer}>
-                <Text style={styles.backButtonText}>Reply</Text>
-              </TouchableOpacity>
+              <View style={{
+                flex: 1, flexDirection: 'row',
+                justifyContent: 'space-between'
+              }}>
+                <TouchableOpacity
+                  onPress={() => navigate('HomeScreen')}
+                  style={styles.backButtonContainer}>
+                  <Text style={styles.backButtonText}>Home</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  onPress={() => navigate('Reply', {
+                    isReply: 1,
+                    memberId: this.state.memberId,
+                    managerId: this.state.managerId,
+                    pastReportId: this.state.memberId
+                  })}
+                  style={styles.backButtonContainer}>
+                  <Text style={styles.backButtonText}>Reply</Text>
+                </TouchableOpacity>
               </View>
             </TouchableOpacity>
-            
+
 
           </View>
         </View>

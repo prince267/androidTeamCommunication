@@ -1,19 +1,10 @@
-/*Screen to view all the user*/
+/*Screen to view all the Seen or unseen Messages*/
 import React from 'react';
 import { Text, View, TouchableOpacity, ScrollView ,Image} from 'react-native';
-import { openDatabase } from 'react-native-sqlite-storage';
-import {DATA_BASE} from '../constant'
-//Connction to access the pre-populated user_db.db
+import {databaseOpen} from '../api/dataBase'
 import styles from './seenMessagesCSS'
-function openCB() {
-  console.log("database open");
-}
-function errorCB(err) {
-  alert("error: " + err);
-  return false;
-}
-var db = openDatabase({ name: DATA_BASE, createFromLocation: 1 }, openCB, errorCB);
 
+var db =databaseOpen();
 export default class seenMessages extends React.Component {
   static navigationOptions = {
     title: "Messages ",

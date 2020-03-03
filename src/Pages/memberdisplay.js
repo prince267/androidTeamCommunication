@@ -1,19 +1,9 @@
-/*Screen to view all the user*/
+/*Screen to view all the Members*/
 import React from 'react';
-import { FlatList, Text, View, Image, StyleSheet } from 'react-native';
-import { openDatabase } from 'react-native-sqlite-storage';
+import { FlatList, Text, View, Image } from 'react-native';
 import styles from './memberdisplayCSS'
-import {DATA_BASE} from '../constant'
-//Connction to access the pre-populated user_db.db
-function openCB() {
-  console.log("database open");
-}
-function errorCB(err) {
-  alert("error: " + err);
-  return false;
-}
-var db = openDatabase({ name: DATA_BASE, createFromLocation: 1 }, openCB, errorCB);
-
+import { databaseOpen } from '../api/dataBase'
+var db = databaseOpen();
 export default class memberdisplay extends React.Component {
   static navigationOptions = {
     title: "Member Display",

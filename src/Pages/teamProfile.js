@@ -1,19 +1,10 @@
 /*Screen to view all the user*/
 import React from 'react';
 import { Text, View, Image, TouchableOpacity ,ScrollView} from 'react-native';
-import { openDatabase } from 'react-native-sqlite-storage';
+import {databaseOpen} from '../api/dataBase'
 import styles from './teamProfileCSS'
-import {DATA_BASE} from '../constant'
-function openCB() {
-  console.log("database open");
-}
-function errorCB(err) {
-  alert("error: " + err);
-  return false;
-}
-var db = openDatabase({ name: DATA_BASE, createFromLocation: 1 }, openCB, errorCB);
-//Connction to access the pre-populated user_db.db
 
+var db =databaseOpen();
 
 export default class teamProfile extends React.Component {
   static navigationOptions = {
