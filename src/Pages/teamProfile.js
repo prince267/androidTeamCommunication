@@ -49,7 +49,7 @@ export default class teamProfile extends React.Component {
                 })}
               >
                 <View style={styles.box}>
-                  <Image style={styles.image} source={{ uri: item.photoThumb }} />
+                  <Image style={styles.image} source={require('../../avatar6.png')} />
                   <Text style={styles.username}>
                     {item.memberName}
                   </Text>

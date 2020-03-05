@@ -1,7 +1,8 @@
 /*Screen to view Main HomeScreen*/
 import React from 'react';
-import { View, Alert, ScrollView } from 'react-native';
+import { View, Alert, ScrollView ,Text} from 'react-native';
 import Mybutton from '../components/Mybutton';
+import * as data from '../../teamDisplay.json'
 import NotifService from '../NotifService';
 import Notification from '../notification'
 import { databaseOpen } from '../api/dataBase'
@@ -35,8 +36,8 @@ export default class HomeScreen extends React.Component {
 
   async getData() {
     try {
-      let response = await fetch(`https://api.myjson.com/bins/17ndf0`);
-      let data = await response.json()
+      // let response = await fetch(`https://api.myjson.com/bins/17ndf0`);
+      // let data = await response.json()
       console.log("******* DATA FETCHED *********")
       this.setState({ a: 0 })
       data.memberActivity.map((item) => {
@@ -98,6 +99,7 @@ export default class HomeScreen extends React.Component {
             backgroundColor: 'white',
             flexDirection: 'column',
           }}>
+
           {this.display()}
           <Mybutton
             title="Team Profile"
