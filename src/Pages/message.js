@@ -21,7 +21,7 @@ export default class Message extends Component {
       time: this.props.navigation.state.params.time,
       referenceId: this.props.navigation.state.params.referenceId,
       seenOrUnSeen: this.props.navigation.state.params.seenOrUnSeen,
-      activityImage: this.props.navigation.state.params.activityImage
+      imageId: this.props.navigation.state.params.imageId
     };
     console.log("seen is ", this.state.seenOrUnSeen);
     if (!this.state.seenOrUnSeen) {
@@ -62,8 +62,8 @@ export default class Message extends Component {
   }
 
   imageDisplay() {
-    if (this.state.activityImage != 'null') {
-      console.log("activity Image ", this.state.activityImage)
+    if (this.state.imageId != null) {
+      console.log("activity Image ", this.state.imageId)
       return (
         <View style={{
           justifyContent: 'center',
@@ -72,7 +72,7 @@ export default class Message extends Component {
           {/* <Image source = {{uri:'https://shorturl.at/hoq28'}}
    style = {{ width: 80, height: 80,marginBottom:16 }}
    /> */}
-          <Image source={{ uri: this.state.activityImage }}
+          <Image source={{ uri: this.state.imageId }}
             style={{ width: 80, height: 80, marginBottom: 16 }}
           />
 
@@ -87,6 +87,7 @@ export default class Message extends Component {
     const { navigate } = this.props.navigation;
     return (
       <ScrollView>
+         
         <View style={styles.container}>
           <View style={styles.content}>
             <Text style={styles.logo}>Messege</Text>
@@ -115,6 +116,7 @@ export default class Message extends Component {
                   })}
                   style={styles.backButtonContainer}>
                   <Text style={styles.backButtonText}>Reply</Text>
+                 
                 </TouchableOpacity>
               </View>
             </TouchableOpacity>

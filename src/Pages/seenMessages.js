@@ -1,10 +1,10 @@
 /*Screen to view all the Seen or unseen Messages*/
 import React from 'react';
-import { Text, View, TouchableOpacity, ScrollView ,Image} from 'react-native';
-import {databaseOpen} from '../api/dataBase'
+import { Text, View, TouchableOpacity, ScrollView, Image } from 'react-native';
+import { databaseOpen } from '../api/dataBase'
 import styles from './seenMessagesCSS'
 
-var db =databaseOpen();
+var db = databaseOpen();
 export default class seenMessages extends React.Component {
   static navigationOptions = {
     title: "Messages ",
@@ -77,14 +77,14 @@ export default class seenMessages extends React.Component {
                       time: item.seenDateTime,
                       referenceId: "NULL",
                       seenOrUnSeen: item.seenOrUnseen,
-                      activityImage: item.activityImage
+                      imageId: item.imageId
                     });
                   }}
                 >
                   <View style={styles.box}>
-                  <Image source = {{uri:item.activityImage}}
-   style = {{ width: 27, height: 27}}
-   /> 
+                    <Image source={{ uri: item.imageId }}
+                      style={{ width: 27, height: 27 }}
+                    />
                     <Text style={styles.username}>
                       {item.activityDescription}
                     </Text>
@@ -110,10 +110,13 @@ export default class seenMessages extends React.Component {
                     time: item.seenDateTime,
                     referenceId: item.refPastReportId,
                     seenOrUnSeen: item.seenOrUnseen,
-                    activityImage: 'null'
+                    imageId: item.imageId
                   })}
                 >
                   <View style={styles.box}>
+                    <Image source={{ uri: item.imageId }}
+                      style={{ width: 27, height: 27 }}
+                    />
                     <Text style={styles.username}>
                       {item.reportText}
                     </Text>

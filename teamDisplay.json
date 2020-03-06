@@ -1,0 +1,204 @@
+{
+    "team": [
+      {
+        "teamId": 11,
+        "teamName": "Chinniah",
+        "teamProfilePhoto": "https://bootdey.com/img/Content/avatar/avatar6.png",
+        "teamEmailId": "ssdsdsds@gmail.com"
+      },
+      {
+        "teamId": 12,
+        "teamName": "Jofin",
+        "teamProfilePhoto": "https://bootdey.com/img/Content/avatar/avatar6.png",
+        "teamEmailId": "sdsds@gmail.com"
+      }
+    ],
+    "teamMembers": [
+      {
+        "memberId": 1,
+        "memberName": "Anju",
+        "gender": "male",
+        "photoThumb": "https://bootdey.com/img/Content/avatar/avatar6.png",
+        "photoLarge": "hkhkj",
+        "emailId": "fjfjh",
+        "Phone": 9876543210,
+        "projectName": "react Native",
+        "teamId": 11
+      },
+      {
+        "memberId": 2,
+        "memberName": "Manju",
+        "gender": "male",
+        "photoThumb": "https://bootdey.com/img/Content/avatar/avatar2.png",
+        "photoLarge": "hkhkjint",
+        "emailId": "fjfjh",
+        "Phone": 8976543120,
+        "projectName": "React Js",
+        "teamId": 12
+      },
+      {
+        "memberId": 3,
+        "memberName": "Sanju",
+        "gender": "male",
+        "photoThumb": "https://bootdey.com/img/Content/avatar/avatar3.png",
+        "photoLarge": "hkhkjint",
+        "emailId": "fjfjh",
+        "Phone": 7894561230,
+        "projectName": "HTML",
+        "teamId": 11
+      }
+    ],
+    "seniorMembers": [
+      {
+        "managerId": 10,
+        "mgrName": "Damodar Kulkarni",
+        "mgrGender": "male",
+        "mgrPhotoThumb": "https://bootdey.com/img/Content/avatar/avatar6.png",
+        "mgrPhotoLarge": "https://bootdey.com/img/Content/avatar/avatar6.png",
+        "mgrEmailId": "dkulkarni@gmail.com",
+        "mgrPhone": 1234567890
+      },
+      {
+        "managerId": 11,
+        "mgrName": "Vishal",
+        "mgrGender": "male",
+        "mgrPhotoThumb": "https://bootdey.com/img/Content/avatar/avatar6.png",
+        "mgrPhotoLarge": "https://bootdey.com/img/Content/avatar/avatar6.png",
+        "mgrEmailId": "vishal@gmail.com",
+        "mgrPhone": 1234567890
+      }
+    ],
+    "managerMemberAssoc": [
+      {
+        "managerId": 10,
+        "memberId": 1
+      },
+      {
+        "managerId": 11,
+        "memberId": 1
+      },
+      {
+        "managerId": 10,
+        "memberId": 2
+      },
+      {
+        "managerId": 11,
+        "memberId": 2
+      }
+    ],
+    "memberActivity": [
+      {
+        "memberId": 12,
+        "activitySerialNo": 1,
+        "activityDescription": "Scrum Update 17",
+        "arrivalDateTime": "10:30",
+        "seenDateTime": "10:45",
+        "imageId": "https://cdn18.nnnow.com/web-images/medium/styles/FDL5EWXSG0D/1550751943691/2.jpg",
+        "seenOrUnseen": 1
+      },
+      {
+        "memberId": 11,
+        "activitySerialNo": 10,
+        "activityDescription": "scrum Update 1",
+        "arrivalDateTime": "10:00",
+        "seenDateTime": "null",
+        "imageId": "https://cdn01.nnnow.com/web-images/medium/styles/7XNUKNDCQ0M/1578894426723/2.jpg",
+        "seenOrUnseen": 0
+      },
+      {
+        "memberId": 11,
+        "activitySerialNo": 12,
+        "activityDescription": "scrum Update 19",
+        "arrivalDateTime": "11:00",
+        "seenDateTime": "null",
+        "imageId": "https://cdn00.nnnow.com/web-images/master/microsite_banner/59b25864e4b0d70964ee82de/1581878295213/FLYOUT-MEN-DESK.jpg",
+        "seenOrUnseen": 0
+      },
+      {
+        "memberId": 12,
+        "activitySerialNo": 3,
+        "activityDescription": "scrum Update 02",
+        "arrivalDateTime": "11:30",
+        "seenDateTime": "null",
+        "imageId": "https://cdn09.nnnow.com/web-images/medium/styles/SM56BAIOC53/1561612905131/2.jpg",
+        "seenOrUnseen": 0
+      },
+      {
+        "memberId": 11,
+        "activitySerialNo": 9,
+        "activityDescription": "standUp UPdate 02",
+        "arrivalDateTime": "12:00",
+        "seenDateTime": "null",
+        "imageId": null,
+        "seenOrUnseen": 0
+      }
+    ],
+    "seniorManagerReporting": [
+      {
+        "managerId": 21,
+        "memberId": 11,
+        "reportId": 1,
+        "reportText": "member work report",
+        "refPastReportId": null,
+        "arrivalDateTime": "11:00",
+        "seenDateTime": null,
+        "imageId":null,
+        "seenOrUnseen": 0
+      },
+      {
+        "managerId": 21,
+        "memberId": 12,
+        "reportId": 1,
+        "reportText": "member Promotion report",
+        "refPastReportId": null,
+        "arrivalDateTime": "12:00",
+        "seenDateTime": "10:00",
+        "imageId":null,
+        "seenOrUnseen": 1
+      },
+      {
+        "managerId": 21,
+        "memberId": 11,
+        "reportId": 13,
+        "reportText": "daily work update",
+        "refPastReportId": 1,
+        "arrivalDateTime": "10:30",
+        "seenDateTime": null,
+        "imageId":null,
+        "seenOrUnseen": 0
+      },
+      {
+        "managerId": 21,
+        "memberId": 12,
+        "reportId": 10,
+        "reportText": "daily work updating dd",
+        "refPastReportId": 1,
+        "arrivalDateTime": "10:30",
+        "seenDateTime": null,
+        "imageId":null,
+        "seenOrUnseen": 0
+      },
+      {
+        "managerId": 22,
+        "memberId": 13,
+        "reportId": 11,
+        "reportText": "Past work update",
+        "refPastReportId": null,
+        "arrivalDateTime": "12:30",
+        "seenDateTime": null,
+        "imageId":null,
+        "seenOrUnseen": 0
+      },
+      {
+        "managerId": 22,
+        "memberId": 13,
+        "reportId": 12,
+        "reportText": "Future works ",
+        "refPastReportId": 10,
+        "arrivalDateTime": "11:30",
+        "seenDateTime": null,
+        "imageId":null,
+        "seenOrUnseen": 0
+      }
+    ]
+  }

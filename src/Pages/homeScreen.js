@@ -2,9 +2,12 @@
 import React from 'react';
 import { View, Alert, ScrollView } from 'react-native';
 import Mybutton from '../components/Mybutton';
+import * as data from '../../teamDisplay.json';
 import NotifService from '../NotifService';
 import Notification from '../notification'
 import { databaseOpen } from '../api/dataBase'
+
+
 
 var db = databaseOpen();
 
@@ -21,7 +24,7 @@ export default class HomeScreen extends React.Component {
     }
     this.notif = new NotifService(this.onNotif.bind(this));
     // // this.notif.localNotif();
-    this._isMounted = false;
+    this._isMounted= false;
   }
 
   componentDidMount() {
@@ -35,15 +38,15 @@ export default class HomeScreen extends React.Component {
 
   async getData() {
     try {
-      let response = await fetch(`https://api.myjson.com/bins/17ndf0`);
-      let data = await response.json()
+      // let response = await fetch(`https://api.myjson.com/bins/17ndf0`);
+      // let data = await response.json()
       console.log("******* DATA FETCHED *********")
       this.setState({ a: 0 })
       data.memberActivity.map((item) => {
         db.transaction((tx) => {
           tx.executeSql(
-            'INSERT INTO memberActivity (memberId, activitySerialNo, activityDescription,arrivalDateTime,seenDateTime,activityImage,seenOrUnseen) VALUES (?,?,?,?,?,?,?)',
-            [item.memberId, item.activitySerialNo, item.activityDescription, item.arrivalDateTime, item.seenDateTime, item.activityImage, item.seenOrUnseen],
+            'INSERT INTO memberActivity (memberId, activitySerialNo, activityDescription,arrivalDateTime,seenDateTime,imageId,seenOrUnseen) VALUES (?,?,?,?,?,?,?)',
+            [item.memberId, item.activitySerialNo, item.activityDescription, item.arrivalDateTime, item.seenDateTime, item.imageId, item.seenOrUnseen],
             (tx, results) => {
               console.log('Results', results);
               if (results.rowsAffected > 0) {
@@ -60,8 +63,8 @@ export default class HomeScreen extends React.Component {
       data.seniorManagerReporting.map((item) => {
         db.transaction((tx) => {
           tx.executeSql(
-            'INSERT INTO seniorManagerReporting (managerId,memberId,reportId,reportText,refPastReportId,arrivalDateTime,seenDateTime,seenOrUnseen) VALUES (?,?,?,?,?,?,?,?)',
-            [item.managerId, item.memberId, item.reportId, item.reportText, item.refPastReportId, item.arrivalDateTime, item.seenDateTime, item.seenOrUnseen],
+            'INSERT INTO seniorManagerReporting (managerId,memberId,reportId,reportText,refPastReportId,arrivalDateTime,seenDateTime,imageId,seenOrUnseen) VALUES (?,?,?,?,?,?,?,?,?)',
+            [item.managerId, item.memberId, item.reportId, item.reportText, item.refPastReportId, item.arrivalDateTime, item.seenDateTime,item.imageId, item.seenOrUnseen],
             (tx, results) => {
               console.log('Results', results);
               if (results.rowsAffected > 0) {

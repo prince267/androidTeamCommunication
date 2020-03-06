@@ -10,6 +10,7 @@ import {
   Alert
 } from 'react-native'
 import { databaseOpen } from '../api/dataBase'
+import Imagepickers from '../imagePickers'
 
 var db = databaseOpen();
 export default class Reply extends React.Component {
@@ -119,6 +120,8 @@ export default class Reply extends React.Component {
             value={this.state.reportId}
             onChangeText={val => this.onChangeText('reportId', val)}
           />
+          <Text style={styles.text_container}>Upload Image</Text>
+          <Imagepickers/>
           <Text style={styles.text_container}>Report Text</Text>
           <TextInput
             style={styles.report_text}
