@@ -1,6 +1,6 @@
 /*This is an example of Image Picker in React Native*/
 import React from 'react';
-import { StyleSheet, Text, View, Button, Image, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import 'react-native-get-random-values';
 import { v4 as uuidv4 } from 'uuid';
 import { moveAttachment } from './api/moveAttachment'
@@ -9,7 +9,7 @@ import ImagePicker from 'react-native-image-picker';
 import { databaseOpen } from './api/dataBase'
 
 const db = databaseOpen();
-export default class App extends React.Component {
+export default class Imagepickers extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -55,7 +55,7 @@ export default class App extends React.Component {
       } else {
         let source = response;
         console.log("response .uri ", response.uri)
-        this.insertImageTable(response.fileName,'',response.path,1)
+        this.insertImageTable(response.fileName, '', response.path, 1)
         alert("File Uploaded");
         // You can also display the image using data:
         // let source = { uri: 'data:image/jpeg;base64,' + response.data };
@@ -70,11 +70,11 @@ export default class App extends React.Component {
   moveImage = async (filePath, dirPictures) => {
 
     const uuid = uuidv4();
-    const imageName=`${uuid}.jpeg`
+    const imageName = `${uuid}.jpeg`
     const newFilepath = `${dirPictures}/${imageName}`;
     var isMoveSuccessfull = await moveAttachment(filePath, newFilepath, dirPictures);
     if (isMoveSuccessfull) {
-      this.insertImageTable(imageName,filePath,newFilepath,1);
+      this.insertImageTable(imageName, filePath, newFilepath, 1);
     }
 
   }
