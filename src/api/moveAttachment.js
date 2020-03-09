@@ -1,6 +1,7 @@
 const RNFS = require('react-native-fs')
 
 export const moveAttachment = async (filePath, newFilepath,dirPicutures) => {
+  console.log("move attachment called")
     return new Promise((resolve, reject) => {
       RNFS.mkdir(dirPicutures)
         .then(() => {

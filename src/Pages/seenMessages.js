@@ -2,6 +2,7 @@
 import React from 'react';
 import { Text, View, TouchableOpacity, ScrollView, Image } from 'react-native';
 import { databaseOpen } from '../api/dataBase'
+import {dirPictures} from '../constant'
 import styles from './seenMessagesCSS'
 
 var db = databaseOpen();
@@ -54,7 +55,17 @@ export default class seenMessages extends React.Component {
     this.focusListener.remove();
   }
 
-
+  displayImage(imageId) {
+    if (imageId == null || imageId == ''){
+      return null
+    }
+    else{
+      return <Image source={{ uri: `file://${dirPictures}/${imageId}` }}
+                      style={{ width: 27, height: 27 }}
+                    /> 
+    }
+      
+  }
   render() {
     const { navigate } = this.props.navigation;
     return (
@@ -82,9 +93,9 @@ export default class seenMessages extends React.Component {
                   }}
                 >
                   <View style={styles.box}>
-                    <Image source={{ uri: item.imageId }}
+                    {/* <Image source={{ uri: item.imageId }}
                       style={{ width: 27, height: 27 }}
-                    />
+                    /> */}
                     <Text style={styles.username}>
                       {item.activityDescription}
                     </Text>
@@ -114,9 +125,10 @@ export default class seenMessages extends React.Component {
                   })}
                 >
                   <View style={styles.box}>
-                    <Image source={{ uri: item.imageId }}
+                    {this.displayImage(item.imageId)}
+                    {/* <Image source={{ uri: item.imageId }}
                       style={{ width: 27, height: 27 }}
-                    />
+                    /> */}
                     <Text style={styles.username}>
                       {item.reportText}
                     </Text>

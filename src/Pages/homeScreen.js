@@ -29,7 +29,7 @@ export default class HomeScreen extends React.Component {
 
   componentDidMount() {
     this._isMounted = true;
-    this.timer = setInterval(() => this._isMounted && this.getData(), 5000)
+    this.timer = setInterval(() => this._isMounted && this.getData(), 30000)
   }
   Alert
   componentWillUnmount() {

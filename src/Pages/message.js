@@ -8,6 +8,7 @@ import {
 } from 'react-native';
 import styles from './messageCSS'
 import { databaseOpen } from '../api/dataBase'
+import {dirPictures} from '../constant'
 var db = databaseOpen();
 export default class Message extends Component {
   constructor(props) {
@@ -62,8 +63,10 @@ export default class Message extends Component {
   }
 
   imageDisplay() {
-    if (this.state.imageId != null) {
-      console.log("activity Image ", this.state.imageId)
+    if (this.state.imageId == null || this.state.imageId== '') {
+      return null
+    }
+    else {
       return (
         <View style={{
           justifyContent: 'center',
@@ -72,14 +75,11 @@ export default class Message extends Component {
           {/* <Image source = {{uri:'https://shorturl.at/hoq28'}}
    style = {{ width: 80, height: 80,marginBottom:16 }}
    /> */}
-          <Image source={{ uri: this.state.imageId }}
+          <Image source={{ uri: `file://${dirPictures}/${this.state.imageId}` }}
             style={{ width: 80, height: 80, marginBottom: 16 }}
           />
 
         </View>)
-    }
-    else {
-      return null
     }
   }
 

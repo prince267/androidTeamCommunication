@@ -7,10 +7,11 @@ import {
   StyleSheet,
   Text,
   ScrollView,
-  Alert
+  Alert,
+  TouchableOpacity
 } from 'react-native'
 import { databaseOpen } from '../api/dataBase'
-import Imagepickers from '../imagePickers'
+import { imageLibrary, launchCamera } from '../imagePickers'
 
 var db = databaseOpen();
 export default class Reply extends React.Component {
@@ -26,6 +27,7 @@ export default class Reply extends React.Component {
       memberId: this.props.navigation.state.params.memberId || '',
       reportId: '',
       reportText: '',
+      imageId:null,
       pastReportId: this.props.navigation.state.params.pastReportId || ''
     }
   }
@@ -36,15 +38,16 @@ export default class Reply extends React.Component {
   sendReply = async () => {
     const { navigate } = this.props.navigation
     var currentTime = new Date().getHours().toString() + new Date().getMinutes().toString();
-    const { managerId, memberId, reportId, reportText, pastReportId } = this.state
+    const { managerId, memberId, reportId, reportText, pastReportId ,imageId} = this.state
+    console.log("image Id is ",imageId)
     if (managerId) {
       if (memberId) {
         if (reportId) {
           if (reportText) {
             db.transaction(function (tx) {
               tx.executeSql(
-                'INSERT INTO seniorManagerReporting (managerId,memberId,reportId,reportText,refPastReportId,arrivalDateTime,seenDateTime,seenOrUnseen) VALUES (?,?,?,?,?,?,?,?)',
-                [managerId, memberId, reportId, reportText, pastReportId, currentTime, null, 0],
+                'INSERT INTO seniorManagerReporting (managerId,memberId,reportId,reportText,refPastReportId,arrivalDateTime,seenDateTime,imageId,seenOrUnseen) VALUES (?,?,?,?,?,?,?,?,?)',
+                [managerId, memberId, reportId, reportText, pastReportId, currentTime, null,imageId, 0],
                 (tx, results) => {
                   console.log('Results', results.rowsAffected);
                   if (results.rowsAffected > 0) {
@@ -80,6 +83,17 @@ export default class Reply extends React.Component {
       alert('Please fill Manager Id')
     }
 
+  }
+  getvalue = async () => {
+    var imageId= await launchCamera()
+    this.setState({imageId:imageId})
+    // console.log("get value ",imageId)
+
+  }
+  getvalue1 = async () => {
+    var imageId=await imageLibrary()
+    this.setState({imageId:imageId})
+    // console.log("get value 1",c)
   }
   display() {
     if (!this.state.isReply) {
@@ -121,7 +135,12 @@ export default class Reply extends React.Component {
             onChangeText={val => this.onChangeText('reportId', val)}
           />
           <Text style={styles.text_container}>Upload Image</Text>
-          <Imagepickers/>
+          <TouchableOpacity onPress={() => this.getvalue()}>
+            <Text style={styles.text_color}>Camera</Text>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => this.getvalue1()}>
+            <Text style={styles.text_color}>Gallery</Text>
+          </TouchableOpacity>
           <Text style={styles.text_container}>Report Text</Text>
           <TextInput
             style={styles.report_text}
@@ -177,6 +196,18 @@ const styles = StyleSheet.create({
     marginLeft: 12,
     fontSize: 15,
     fontWeight: 'bold'
+  },
+  text_color: {
+
+    alignItems: 'center',
+    backgroundColor: '#ADD8E6',
+    width: 70,
+    height: 40,
+    marginTop: 20,
+    marginBottom: 10,
+    marginRight: 15,
+    marginLeft: 10,
+    padding: 10,
   },
   container: {
     flex: 0,
