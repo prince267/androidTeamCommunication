@@ -66,6 +66,9 @@ export default class Reply extends React.Component {
                   } else {
                     alert('Failed to Send');
                   }
+                },
+                (error) =>{
+                  console.log("error in insertition is ",error)
                 }
               );
             });
@@ -135,12 +138,15 @@ export default class Reply extends React.Component {
             onChangeText={val => this.onChangeText('reportId', val)}
           />
           <Text style={styles.text_container}>Upload Image</Text>
+          <View style={{flex: 1,
+    flexDirection: 'row',}}>
           <TouchableOpacity onPress={() => this.getvalue()}>
             <Text style={styles.text_color}>Camera</Text>
           </TouchableOpacity>
           <TouchableOpacity onPress={() => this.getvalue1()}>
             <Text style={styles.text_color}>Gallery</Text>
           </TouchableOpacity>
+          </View>
           <Text style={styles.text_container}>Report Text</Text>
           <TextInput
             style={styles.report_text}
