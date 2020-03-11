@@ -2,47 +2,68 @@ import { StyleSheet } from 'react-native'
 export default StyleSheet.create({
     container: {
         flex: 1,
-    },
-    content: {
+        justifyContent: 'center',
         alignItems: 'center',
-    },
-    logo: {
-        color: 'blue',
-        fontSize: 40,
-        fontWeight: 'bold',
-        textShadowColor: 'grey',
-        textShadowOffset: { width: 2, height: 2 },
-        textShadowRadius: 15,
-        marginBottom: 20,
+        backgroundColor: '#DCDCDC',
     },
     inputContainer: {
-        margin: 20,
-        marginBottom: 0,
-        padding: 20,
-        paddingBottom: 10,
-        alignSelf: 'stretch',
-        borderWidth: 1,
-        borderColor: '#fff',
-        backgroundColor: 'rgba(255,255,255,0.2)',
+        borderBottomColor: '#F5FCFF',
+        backgroundColor: '#FFFFFF',
+        borderRadius: 50,
+        borderBottomWidth: 1,
+        width: 300,
+        height: 45,
+        marginBottom: 20,
+        flexDirection: 'row',
+        alignItems: 'center',
+  
+        shadowColor: "#808080",
+        shadowOffset: {
+            width: 0,
+            height: 2,
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84,
+  
+        elevation: 5,
     },
-    input: {
-        fontSize: 16,
-        height: 40,
-        padding: 10,
-        marginBottom: 10,
-        backgroundColor: 'rgba(255,255,255,1)',
+    inputs: {
+        height: 45,
+        marginLeft: 16,
+        borderBottomColor: '#FFFFFF',
+        flex: 1,
+    },
+    inputIcon: {
+        width: 30,
+        height: 30,
+        marginRight: 15,
+        justifyContent: 'center'
     },
     buttonContainer: {
-        alignSelf: 'stretch',
-        margin: 20,
-        padding: 20,
-        borderWidth: 1,
-        borderColor: '#fff',
-        backgroundColor: 'rgba(255,255,255,0.6)',
+        height: 45,
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginBottom: 20,
+        width: 300,
+        borderRadius: 30,
+        backgroundColor: 'transparent'
     },
-    buttonText: {
-        fontSize: 16,
-        fontWeight: 'bold',
-        textAlign: 'center',
+    
+    loginButton: {
+        backgroundColor: "#00b5ec",
+  
+        shadowColor: "#808080",
+        shadowOffset: {
+            width: 0,
+            height: 9,
+        },
+        shadowOpacity: 0.50,
+        shadowRadius: 12.35,
+  
+        elevation: 19,
+    },
+    loginText: {
+        color: 'white',
     },
 });

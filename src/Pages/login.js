@@ -1,87 +1,82 @@
 /*Screen to view Login*/
-import React, { Component } from 'react';
-import {
-  Text,
-  ScrollView,
-  View,
-  TextInput,
-  TouchableOpacity,
-} from 'react-native';
+import React, {Component} from 'react';
+import {Text, View, TextInput, TouchableOpacity, Image} from 'react-native';
 import styles from './loginCSS';
-import { databaseOpen } from '../api/dataBase'
+import {databaseOpen} from '../api/dataBase'
 var db = databaseOpen();
 export default class Login extends Component {
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      username: '',
-      password: '',
-      isLogin: false
+    constructor(props) {
+        super(props);
+        state = {
+            username: '',
+            password: '',
+            isLogin: false
+        }
+    }
+
+    login() {
+        const {navigate} = this.props.navigation
+
+        db.transaction(tx => {
+            this.setState({isLogin: false});
+            tx.executeSql(`SELECT teamId,teamName,teamProfilePhoto FROM team WHERE teamId="${this.state.username}" AND teamPassword="${this.state.password}"`, [], (tx, results) => {
+                if (results.rows.length) {
+                    this.setState({isLogin: true});
+                };
+                let user = results
+                    .rows
+                    .item(0)
+                if (this.state.isLogin) {
+                    navigate('HomeScreen', {
+                        teamId: this.state.username,
+                        teamName: user.teamName,
+                        teamProfilePhoto: user.teamProfilePhoto
+                    })
+                } else {
+                    alert("wrong credentials")
+                }
+            })
+        });
     };
-  }
 
-  login() {
-    const { navigate } = this.props.navigation
+    render() {
+        return (
+            <View style={styles.container}>
+                <View style={styles.inputContainer}>
+                    <TextInput
+                        style={styles.inputs}
+                        placeholder="Username"
+                        underlineColorAndroid='transparent'
+                        onChangeText={(username) => this.setState({username})}/>
+                    <Image
+                        style={styles.inputIcon}
+                        source={{
+                        uri: 'asset:/images/email.png'
+                    }}/>
+                </View>
 
-    db.transaction(tx => {
-      this.setState({ isLogin: false });
-      tx.executeSql(`SELECT teamId FROM team WHERE teamId="${this.state.username}" AND teamPassword="${this.state.password}"`, [], (tx, results) => {
-        if (results.rows.length) {
-          this.setState({
-            isLogin: true,
-          });
-        };
-        if (this.state.isLogin) {
-          navigate('HomeScreen', {
-            teamId: this.state.username
-          })
-        }
-        else {
-          alert("wrong credentials")
-        }
-      })
-    });
-  };
+                <View style={styles.inputContainer}>
+                    <TextInput
+                        style={styles.inputs}
+                        placeholder="Password"
+                        secureTextEntry={true}
+                        underlineColorAndroid='transparent'
+                        onChangeText={(password) => this.setState({password})}/>
+                    <Image
+                        style={styles.inputIcon}
+                        source={{
+                        uri: 'asset:/images/key.png'
+                    }}/>
+                </View>
 
-  render() {
-    const { navigate } = this.props.navigation;
-    return (
-      <ScrollView>
-        <View style={styles.container}>
-          <View style={styles.content}>
-            <Text style={styles.logo}>Login</Text>
-            <View style={styles.inputContainer}>
-              <TextInput
-                underlineColorAndroid="transparent"
-                style={styles.input}
-                onChangeText={username => this.setState({ username })}
-                value={this.state.username}
-                placeholder="username"
-              />
+                <TouchableOpacity
+                    style={[styles.buttonContainer, styles.loginButton]}
+                    onPress={() => this.login()}>
+                    <Text style={styles.loginText}>Login</Text>
+                </TouchableOpacity>
 
-              <TextInput
-                secureTextEntry={true}
-                underlineColorAndroid="transparent"
-                style={styles.input}
-                onChangeText={password => this.setState({ password })}
-                value={this.state.password}
-                placeholder="password"
-              />
-
-              <TouchableOpacity
-                onPress={() => {
-                  this.login();
-                }}
-                style={styles.buttonContainer}>
-                <Text style={styles.buttonText}>LOGIN</Text>
-              </TouchableOpacity>
             </View>
-
-          </View>
-        </View>
-      </ScrollView>
-    );
-  }
-
+        );
+    }
 }

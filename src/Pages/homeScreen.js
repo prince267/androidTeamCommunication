@@ -1,6 +1,6 @@
 /*Screen to view Main HomeScreen*/
 import React from 'react';
-import { View, Alert, ScrollView } from 'react-native';
+import { View, Alert, ScrollView ,StyleSheet,Image,Text } from 'react-native';
 import Mybutton from '../components/Mybutton';
 import * as data from '../../teamDisplay.json';
 import NotifService from '../NotifService';
@@ -20,7 +20,9 @@ export default class HomeScreen extends React.Component {
     this.state = {
       count: 0,
       a: 0,
-      teamId: this.props.navigation.state.params.teamId
+      teamId: this.props.navigation.state.params.teamId,
+      teamName:this.props.navigation.state.params.teamName,
+      teamProfilePhoto:this.props.navigation.state.params.teamProfilePhoto
     }
     this.notif = new NotifService(this.onNotif.bind(this));
     // // this.notif.localNotif();
@@ -95,6 +97,18 @@ export default class HomeScreen extends React.Component {
   render() {
     return (
       <ScrollView>
+      <View style={styles.container}>
+      <View style={styles.header}>
+        <View style={styles.headerContent}>
+            <Image style={styles.avatar}
+              source={{uri: `${this.state.teamProfilePhoto}`}}/>
+
+            <Text style={styles.name}>
+              Welcome {this.state.teamName}
+            </Text>
+        </View>
+      </View>
+      
         <View
           style={{
             flex: 1,
@@ -121,6 +135,7 @@ export default class HomeScreen extends React.Component {
             customClick={() => this.props.navigation.navigate('Reply', { isReply: 0 })}
           />
         </View>
+      </View>
       </ScrollView>
     );
   }
@@ -134,3 +149,25 @@ export default class HomeScreen extends React.Component {
   }
 }
 
+const styles = StyleSheet.create({
+  header:{
+    backgroundColor: "#00BFFF",
+  },
+  headerContent:{
+    padding:30,
+    alignItems: 'center',
+  },
+  avatar: {
+    width: 130,
+    height: 130,
+    borderRadius: 63,
+    borderWidth: 4,
+    borderColor: "white",
+    marginBottom:10,
+  },
+  name:{
+    fontSize:22,
+    color:"#FFFFFF",
+    fontWeight:'600',
+  }
+});
