@@ -134,6 +134,11 @@ export default class HomeScreen extends React.Component {
             title="New Messages"
             customClick={() => this.props.navigation.navigate('Reply', { isReply: 0 })}
           />
+          <Mybutton
+            title="Sent Messages"
+            customClick={() => this.props.navigation.navigate('sentMessages')}
+          />
+          
         </View>
       </View>
       </ScrollView>

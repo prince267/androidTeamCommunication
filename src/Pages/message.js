@@ -8,7 +8,7 @@ import {
 } from 'react-native';
 import styles from './messageCSS'
 import { databaseOpen } from '../api/dataBase'
-import {dirPictures} from '../constant'
+import { dirPictures } from '../constant'
 var db = databaseOpen();
 export default class Message extends Component {
   constructor(props) {
@@ -22,7 +22,8 @@ export default class Message extends Component {
       time: this.props.navigation.state.params.time,
       referenceId: this.props.navigation.state.params.referenceId,
       seenOrUnSeen: this.props.navigation.state.params.seenOrUnSeen,
-      imageId: this.props.navigation.state.params.imageId
+      imageId: this.props.navigation.state.params.imageId,
+      isSent: this.props.navigation.state.params.isSent || 0
     };
     console.log("seen is ", this.state.seenOrUnSeen);
     if (!this.state.seenOrUnSeen) {
@@ -63,7 +64,7 @@ export default class Message extends Component {
   }
 
   imageDisplay() {
-    if (this.state.imageId == null || this.state.imageId== '') {
+    if (this.state.imageId == null || this.state.imageId == '') {
       return null
     }
     else {
@@ -83,11 +84,31 @@ export default class Message extends Component {
     }
   }
 
+  showReplyButton = () => {
+    if (this.state.isSent) {
+      return null
+    }
+    else {
+      return <TouchableOpacity
+        onPress={() => navigate('Reply', {
+          isReply: 1,
+          memberId: this.state.memberId,
+          managerId: this.state.managerId,
+          pastReportId: this.state.memberId
+        })}
+        style={styles.backButtonContainer}>
+        <Text style={styles.backButtonText}>Reply</Text>
+
+      </TouchableOpacity>
+    }
+
+  }
+
   render() {
     const { navigate } = this.props.navigation;
     return (
       <ScrollView>
-         
+
         <View style={styles.container}>
           <View style={styles.content}>
             <Text style={styles.logo}>Messege</Text>
@@ -107,17 +128,7 @@ export default class Message extends Component {
                   style={styles.backButtonContainer}>
                   <Text style={styles.backButtonText}>Home</Text>
                 </TouchableOpacity>
-                <TouchableOpacity
-                  onPress={() => navigate('Reply', {
-                    isReply: 1,
-                    memberId: this.state.memberId,
-                    managerId: this.state.managerId,
-                    pastReportId: this.state.memberId
-                  })}
-                  style={styles.backButtonContainer}>
-                  <Text style={styles.backButtonText}>Reply</Text>
-                 
-                </TouchableOpacity>
+              {this.showReplyButton()}
               </View>
             </TouchableOpacity>
 

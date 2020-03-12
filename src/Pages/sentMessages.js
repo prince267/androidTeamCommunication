@@ -3,10 +3,10 @@ import React from 'react';
 import { Text, View, TouchableOpacity, ScrollView, Image } from 'react-native';
 import { databaseOpen } from '../api/dataBase'
 import {dirPictures} from '../constant'
-import styles from './seenMessagesCSS'
+import styles from './sentMessagesCSS'
 
 var db = databaseOpen();
-export default class seenMessages extends React.Component {
+export default class sentMessages extends React.Component {
   static navigationOptions = {
     title: "Messages ",
     //Sets Header text of Status Bar
@@ -15,37 +15,25 @@ export default class seenMessages extends React.Component {
     // this.updateUser.bind(this)
     super(props);
     this.state = {
-      navigate: "",
-      seenOrUnSeen: this.props.navigation.state.params.seenOrUnSeen,
-      memberMessages: [],
-      seniorManagerMessages: []
+      seniorManagerSentMessages: []
     };
   }
   componentDidMount() {
     const { navigation } = this.props;
     this.focusListener = navigation.addListener('didFocus', () => {
       db.transaction(tx => {
-        tx.executeSql(`select * from MemberActivity where seenOrUnseen=${this.state.seenOrUnSeen};`, [], (tx, results) => {
+        tx.executeSql(`select * from seniorManagerReporting where isSent=1;`, [], (tx, results) => {
           var temp = [];
           for (let i = 0; i < results.rows.length; ++i) {
             temp.push(results.rows.item(i));
           }
-          console.log("Message Displayed")
+          console.log("Sent Message Displayed")
           this.setState({
-            memberMessages: temp,
+            seniorManagerSentMessages: temp,
           });
-        });
-      });
-      db.transaction(tx => {
-        tx.executeSql(`select * from seniorManagerReporting where seenOrUnseen=${this.state.seenOrUnSeen} and isSent=0;`, [], (tx, results) => {
-          var temp = [];
-          for (let i = 0; i < results.rows.length; ++i) {
-            temp.push(results.rows.item(i));
-          }
-          console.log("Message Displayed")
-          this.setState({
-            seniorManagerMessages: temp,
-          });
+        },
+        (error)=>{
+            console.log("error is ",error)
         });
       });
     });
@@ -71,45 +59,9 @@ export default class seenMessages extends React.Component {
     return (
       <ScrollView style={{ flex: 1 }}>
         <View style={styles.body}>
-          <Text>MemberActivity</Text>
-          <ScrollView>
-
-            {
-              this.state.memberMessages.map((item, index) => (
-                <TouchableOpacity
-                  key={index}
-                  //   style = {styles.container}
-                  onPress={() => {
-                    navigate('Message', {
-                      memberId: item.memberId,
-                      managerId: "NULL",
-                      messageId: item.activitySerialNo,
-                      message: item.activityDescription,
-                      time: item.seenDateTime,
-                      referenceId: "NULL",
-                      seenOrUnSeen: item.seenOrUnseen,
-                      imageId: item.imageId
-                    });
-                  }}
-                >
-                  <View style={styles.box}>
-                    {/* <Image source={{ uri: item.imageId }}
-                      style={{ width: 27, height: 27 }}
-                    /> */}
-                    <Text style={styles.username}>
-                      {item.activityDescription}
-                    </Text>
-                  </View>
-                </TouchableOpacity>
-              ))
-            }
-          </ScrollView>
-        </View>
-        <View style={styles.body}>
           <Text>Senior Manager Reporting</Text>
-          <ScrollView>
             {
-              this.state.seniorManagerMessages.map((item, index) => (
+              this.state.seniorManagerSentMessages.map((item, index) => (
                 <TouchableOpacity
                   key={index}
                   //  style = {styles.container}
@@ -121,7 +73,8 @@ export default class seenMessages extends React.Component {
                     time: item.seenDateTime,
                     referenceId: item.refPastReportId,
                     seenOrUnSeen: item.seenOrUnseen,
-                    imageId: item.imageId
+                    imageId: item.imageId,
+                    isSent:item.isSent
                   })}
                 >
                   <View style={styles.box}>
@@ -136,7 +89,6 @@ export default class seenMessages extends React.Component {
                 </TouchableOpacity>
               ))
             }
-          </ScrollView>
         </View>
       </ScrollView>
     );

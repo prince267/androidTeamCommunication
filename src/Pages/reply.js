@@ -46,8 +46,8 @@ export default class Reply extends React.Component {
           if (reportText) {
             db.transaction(function (tx) {
               tx.executeSql(
-                'INSERT INTO seniorManagerReporting (managerId,memberId,reportId,reportText,refPastReportId,arrivalDateTime,seenDateTime,imageId,seenOrUnseen) VALUES (?,?,?,?,?,?,?,?,?)',
-                [managerId, memberId, reportId, reportText, pastReportId, currentTime, null,imageId, 0],
+                'INSERT INTO seniorManagerReporting (managerId,memberId,reportId,reportText,refPastReportId,arrivalDateTime,seenDateTime,imageId,seenOrUnseen,isSent) VALUES (?,?,?,?,?,?,?,?,?,?)',
+                [managerId, memberId, reportId, reportText, pastReportId, currentTime, null,imageId, 0,1],
                 (tx, results) => {
                   console.log('Results', results.rowsAffected);
                   if (results.rowsAffected > 0) {
