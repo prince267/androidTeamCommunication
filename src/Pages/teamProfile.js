@@ -1,8 +1,9 @@
 /*Screen to view all the user*/
 import React from 'react';
 import { Text, View, Image, TouchableOpacity, ScrollView } from 'react-native';
-import { databaseOpen } from '../api/dataBase'
-import styles from './teamProfileCSS'
+import { databaseOpen } from '../api/dataBase';
+import { dirProfilePictures } from '../constant';
+import styles from './teamProfileCSS';
 
 var db = databaseOpen();
 
@@ -49,7 +50,7 @@ export default class teamProfile extends React.Component {
                   })}
                 >
                   <View style={styles.box}>
-                    <Image style={styles.image} source={{ uri: item.photoThumb }} />
+                    <Image style={styles.image} source={{ uri: `file://${dirProfilePictures}/${item.photoThumb}` }} />
                     <Text style={styles.username}>
                       {item.memberName}
                     </Text>
