@@ -1,6 +1,6 @@
 /*Screen to view all the Seen or unseen Messages*/
 import React from 'react';
-import { Text, View, TouchableOpacity, ScrollView, Image } from 'react-native';
+import { Text, View, TouchableOpacity, ScrollView, Image ,ActivityIndicator } from 'react-native';
 import { databaseOpen } from '../api/dataBase'
 import {dirPictures} from '../constant'
 import styles from './seenMessagesCSS'
@@ -15,13 +15,14 @@ export default class seenMessages extends React.Component {
     // this.updateUser.bind(this)
     super(props);
     this.state = {
-      navigate: "",
+      loading: true,
       seenOrUnSeen: this.props.navigation.state.params.seenOrUnSeen,
       memberMessages: [],
       seniorManagerMessages: []
     };
   }
   componentDidMount() {
+    this.setState({loading:true})
     const { navigation } = this.props;
     this.focusListener = navigation.addListener('didFocus', () => {
       db.transaction(tx => {
@@ -33,6 +34,7 @@ export default class seenMessages extends React.Component {
           console.log("Message Displayed")
           this.setState({
             memberMessages: temp,
+            loading:false
           });
         });
       });
@@ -45,6 +47,7 @@ export default class seenMessages extends React.Component {
           console.log("Message Displayed")
           this.setState({
             seniorManagerMessages: temp,
+            loading:false
           });
         });
       });
@@ -68,6 +71,18 @@ export default class seenMessages extends React.Component {
   }
   render() {
     const { navigate } = this.props.navigation;
+    const {loading} =this.state;
+    if(loading){
+      return (
+        <View style={{
+          flex: 1,
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}>
+          <ActivityIndicator size="large" color="#0000ff" animating={loading} />
+        </View>
+      )
+    }
     return (
       <ScrollView style={{ flex: 1 }}>
         <View style={styles.body}>
