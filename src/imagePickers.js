@@ -1,21 +1,47 @@
-/*This is an example of Image Picker in React Native*/
-import React from 'react';
-import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import 'react-native-get-random-values';
 import { v4 as uuidv4 } from 'uuid';
 import { moveAttachment } from './api/moveAttachment'
 import { dirPictures } from './constant'
 import ImagePicker from 'react-native-image-picker';
 import { databaseOpen } from './api/dataBase'
+const RNFS=require('react-native-fs')
 
 const db = databaseOpen();
 
-const insertImageTable = async (imageId, srcPath, destPath, localCopyFlag) => {
+
+const checkDuplicateImage = async (sha256) =>{
+
+  return new Promise ((resolve,reject)=>{
+    db.transaction((tx)=>{
+      tx.executeSql(
+        `SELECT imageId from imageTable where sha256="${sha256}"`,
+        [],
+        (tx,results) =>{
+          console.log("result after checkup ",results.rows.item(0))
+          if(results.rows.length){
+
+            resolve({
+              imageId:results.rows.item(0).imageId,
+              status:true
+            })
+          }
+          else{
+            resolve({
+              status:false})
+          }
+        }
+      )
+    })
+  })
+
+}
+const insertImageTable = async (imageId, srcPath, destPath, localCopyFlag,sha256) => {
+  console.log("sha256 is ",sha256)
   return new Promise((resolve, reject) => {
     db.transaction((tx) => {
       tx.executeSql(
-        'INSERT INTO imageTable (imageId, srcPath, destPath,localCopyFlag,remoteCopyFlag) VALUES (?,?,?,?,?)',
-        [imageId, srcPath, destPath, localCopyFlag, 0],
+        'INSERT INTO imageTable (imageId, srcPath, destPath,localCopyFlag,remoteCopyFlag,sha256) VALUES (?,?,?,?,?,?)',
+        [imageId, srcPath, destPath, localCopyFlag, 0,sha256],
         (tx, results) => {
           console.log('Results', results);
           if (results.rowsAffected > 0) {
@@ -33,7 +59,7 @@ const insertImageTable = async (imageId, srcPath, destPath, localCopyFlag) => {
   })
 }
 
-const updateImageTable = async (imageId, srcPath, destPath, localCopyFlag) => {
+const updateImageTable = async (imageId) => {
   return new Promise((resolve, reject) => {
     db.transaction((tx) => {
       tx.executeSql(
@@ -89,22 +115,24 @@ const launchCamera = async () => {
       }
     });
   })
-  var b = await insertImageTable(source.fileName, '', source.path, 1)
+  var sha256=await RNFS.hash(source.path,"sha256")
+  var b = await insertImageTable(source.fileName, '', source.path, 1,sha256)
+  console.log("sha256 code ",sha256)
   console.log("insert table ***", b)
   console.log("value of a is ", a)
   return source.fileName;
 };
 
-const moveImage = async (filePath, dirPictures) => {
+const moveImage = async (filePath, dirPictures,sha256) => {
 
   const uuid = uuidv4();
   const imageName = `${uuid}.jpeg`
   const newFilepath = `${dirPictures}/${imageName}`;
-  await insertImageTable(imageName, filePath, newFilepath, 0);
+  await insertImageTable(imageName, filePath, newFilepath, 0,sha256);
   
   var isMoveSuccessfull = await moveAttachment(filePath, newFilepath, dirPictures);
   if (isMoveSuccessfull) {
-    var d=await updateImageTable(imageName, filePath, newFilepath, 0);
+    var d=await updateImageTable(imageName);
     // var d = await insertImageTable(imageName, filePath, newFilepath, 1);
     console.log("after insert success ", d)
     return {
@@ -153,12 +181,22 @@ const imageLibrary = async () => {
       };
     });
   })
-  console.log("laun library success ***", a)
+  // console.log("laun library success ***", a)
 
-
-  var b = await moveImage(source.path, dirPictures);
-  console.log("Move image Psuccess***", b)
-  return b.imageName
-
+  var sha256=await RNFS.hash(source.path,"sha256")
+  var ret= await checkDuplicateImage(sha256);
+  console.log("result are check  ***********",ret)
+  console.log("hash code is ",sha256)
+  if(!ret.status){
+    console.log("new data going to be inserted")
+    var b = await moveImage(source.path, dirPictures,sha256);
+    // console.log("Move image Psuccess***", b)
+    return b.imageName
+  }
+  else{
+    console.log("send previous d")
+    return ret.imageId
+  }
+  
 };
 export { launchCamera, imageLibrary }
