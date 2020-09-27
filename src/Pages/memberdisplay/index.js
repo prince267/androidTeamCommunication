@@ -1,8 +1,8 @@
 /*Screen to view all the Members*/
 import React from 'react';
 import { FlatList, Text, View, Image } from 'react-native';
-import styles from './memberdisplayCSS'
-import { databaseOpen } from '../api/dataBase'
+import styles from './styles'
+import { databaseOpen } from '../../api/dataBase'
 var db = databaseOpen();
 export default class memberdisplay extends React.Component {
   static navigationOptions = {

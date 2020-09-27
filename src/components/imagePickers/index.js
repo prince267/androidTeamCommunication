@@ -1,9 +1,9 @@
 import 'react-native-get-random-values';
 import { v4 as uuidv4 } from 'uuid';
-import { moveAttachment } from './api/moveAttachment'
-import { dirPictures } from './constant'
+import { moveAttachment } from '../../api/moveAttachment'
+import { dirPictures } from '../../constant'
 import ImagePicker from 'react-native-image-picker';
-import { databaseOpen } from './api/dataBase'
+import { databaseOpen } from '../../api/dataBase'
 const RNFS=require('react-native-fs')
 
 const db = databaseOpen();

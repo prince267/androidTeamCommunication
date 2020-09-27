@@ -1,9 +1,9 @@
 /*Screen to view all the Seen or unseen Messages*/
 import React from 'react';
 import { Text, View, TouchableOpacity, ScrollView, Image ,ActivityIndicator } from 'react-native';
-import { databaseOpen } from '../api/dataBase'
-import {dirPictures} from '../constant'
-import styles from './seenMessagesCSS'
+import { databaseOpen } from '../../api/dataBase'
+import {dirPictures} from '../../constant'
+import styles from './styles'
 
 var db = databaseOpen();
 export default class seenMessages extends React.Component {

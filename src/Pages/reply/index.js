@@ -10,8 +10,8 @@ import {
   Alert,
   TouchableOpacity
 } from 'react-native'
-import { databaseOpen } from '../api/dataBase'
-import { imageLibrary, launchCamera } from '../imagePickers'
+import { databaseOpen } from '../../api/dataBase'
+import { imageLibrary, launchCamera } from '../../components/imagePickers'
 
 var db = databaseOpen();
 export default class Reply extends React.Component {

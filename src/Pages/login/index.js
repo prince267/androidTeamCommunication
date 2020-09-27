@@ -1,8 +1,8 @@
 /*Screen to view Login*/
 import React, {Component} from 'react';
 import {Text, View, TextInput, TouchableOpacity, Image} from 'react-native';
-import styles from './loginCSS';
-import {databaseOpen} from '../api/dataBase'
+import styles from './styles';
+import {databaseOpen} from '../../api/dataBase'
 var db = databaseOpen();
 export default class Login extends Component {
 

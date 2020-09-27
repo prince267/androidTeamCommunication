@@ -6,9 +6,9 @@ import {
   TouchableOpacity,
   Image
 } from 'react-native';
-import styles from './messageCSS'
-import { databaseOpen } from '../api/dataBase'
-import { dirPictures } from '../constant'
+import styles from './styles'
+import { databaseOpen } from '../../api/dataBase'
+import { dirPictures } from '../../constant'
 var db = databaseOpen();
 export default class Message extends Component {
   constructor(props) {

@@ -1,11 +1,11 @@
 /*Screen to view Main HomeScreen*/
 import React from 'react';
 import { View, Alert, ScrollView ,StyleSheet,Image,Text } from 'react-native';
-import Mybutton from '../components/Mybutton';
-import * as data from '../../teamDisplay.json';
-import NotifService from '../NotifService';
-import Notification from '../notification'
-import { databaseOpen } from '../api/dataBase'
+import Mybutton from '../../components/Mybutton';
+import * as data from '../../../teamDisplay.json';
+import NotifService from '../../components/NotifService';
+import Notification from '../../components/notification'
+import { databaseOpen } from '../../api/dataBase'
 
 
 
