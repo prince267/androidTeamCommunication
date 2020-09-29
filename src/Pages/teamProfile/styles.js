@@ -13,6 +13,7 @@ export default StyleSheet.create({
         marginTop: 5,
         marginBottom: 5,
         backgroundColor: '#FFFFFF',
+        justifyContent:'space-between',
         flexDirection: 'row',
         shadowColor: 'black',
         shadowOpacity: .2,
@@ -39,14 +40,16 @@ export default StyleSheet.create({
         width: 40,
         height: 40,
     },
-    container: {
-        padding: 10,
-        marginTop: 3,
-        height: 50,
-        backgroundColor: '#d9f9b1',
-        alignItems: 'center',
-    },
     text: {
         color: '#4f603c'
+    },
+    callContainer:{
+        height:60,
+        width:40,
+        color: "#20B2AA",
+        fontSize: 22,
+        alignItems:'center',
+        justifyContent:'center',
+
     }
 });
